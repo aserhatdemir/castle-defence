@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SoldierManager : MonoBehaviour
 {
@@ -8,14 +9,15 @@ public class SoldierManager : MonoBehaviour
     public GameObject soldierPrefab;
     private GameObject soldier;
 
+    //-------wave spawn variables
     public float timeBetweenWaves = 5f;
     private float countDown = 2f;
-    private int WaveIndex = 0;
+    private int waveIndex = 0;
     private float waveSeparator = 0.5f; //sepearete instantiations in wave
     private Transform spawnPoint;
     private float randomizeSpawn = 3f; //for spawnwave to spawn different places
-
-
+    public Text waveCountdownText;
+    //--------
 
     // Start is called before the first frame update
     void Start()
@@ -34,6 +36,7 @@ public class SoldierManager : MonoBehaviour
                 countDown = timeBetweenWaves;
             }
             countDown -= Time.deltaTime;
+            waveCountdownText.text = ((int)(countDown+1f)).ToString();
         }
     }
 
@@ -48,9 +51,9 @@ public class SoldierManager : MonoBehaviour
     //make it coroutine to seperate instantiations from each other
     IEnumerator SpawnWave()
     {
-        WaveIndex++;
+        waveIndex++;
         randomizeSpawn = Random.Range(-3f, 3f);
-        for (int i = 0; i < WaveIndex; i++)
+        for (int i = 0; i < waveIndex; i++)
         {
             SpawnTeamRedSoldier();
             yield return new WaitForSeconds(waveSeparator);
