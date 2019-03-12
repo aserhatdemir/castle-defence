@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Soldier : MonoBehaviour
+public class Tank : MonoBehaviour
 {
     public float speed = 1f;
     public float aimingSpeed = 3f;
@@ -15,8 +15,8 @@ public class Soldier : MonoBehaviour
     public GameObject target;
     private Castle enemyCastle;
     private string enemyTag;
-    //private Transform soldierHead;
-    private Transform soldierMuzzle;
+    private Transform tankHead;
+    private Transform tankMuzzle;
     private float lastFireTime;
 
     // Start is called before the first frame update
@@ -32,8 +32,8 @@ public class Soldier : MonoBehaviour
             enemyTag = "TeamBlue";
         }
 
-        soldierMuzzle = transform.GetChild(0);
-        //soldierMuzzle = transform.GetChild(0).GetChild(0);
+        tankHead = transform.GetChild(0);
+        tankMuzzle = transform.GetChild(0).GetChild(0);
         lastFireTime = Time.time;
 
         InvokeRepeating("FindClosestEnemy", 0.1f, 0.4f);
@@ -122,7 +122,7 @@ public class Soldier : MonoBehaviour
         if (target && (Time.time - lastFireTime > 1f / attackSpeed))
         {
             lastFireTime = Time.time;
-            Bullet bullet1 = Instantiate(bulletPrefab, soldierMuzzle.position, transform.rotation);
+            Bullet bullet1 = Instantiate(bulletPrefab, tankMuzzle.position, transform.rotation);
             //bullet1.direction = soldierMuzzle.right;
             bullet1.direction = (target.transform.position - transform.position).normalized;
             bullet1.targetTag = enemyTag;
@@ -147,6 +147,4 @@ public class Soldier : MonoBehaviour
     }
 
 }
-
-
 
