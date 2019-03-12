@@ -15,7 +15,7 @@ public class Soldier : MonoBehaviour
     public GameObject target;
     private Castle enemyCastle;
     private string enemyTag;
-    private Transform soldierHead;
+    //private Transform soldierHead;
     private Transform soldierMuzzle;
     private float lastFireTime;
 
@@ -32,8 +32,8 @@ public class Soldier : MonoBehaviour
             enemyTag = "TeamBlue";
         }
 
-        soldierHead = transform.GetChild(0);
-        soldierMuzzle = transform.GetChild(0).GetChild(0);
+        soldierMuzzle = transform.GetChild(0);
+        //soldierMuzzle = transform.GetChild(0).GetChild(0);
         lastFireTime = Time.time;
 
         InvokeRepeating("FindClosestEnemy", 0.1f, 0.4f);
@@ -45,10 +45,6 @@ public class Soldier : MonoBehaviour
         //FindClosestEnemy();
         AimTarget();
         ApproachTarget();
-        //if (IsAimingFinished())
-        //{
-        //    ApproachTarget();
-        //}
         Fire();
     }
 

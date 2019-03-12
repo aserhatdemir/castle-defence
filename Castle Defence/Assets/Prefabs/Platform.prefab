@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7360496566986740199}
   - component: {fileID: 4390505238945572347}
   - component: {fileID: 8420823196394378305}
-  - component: {fileID: 2644677467051996698}
+  - component: {fileID: 3600096993934595851}
   m_Layer: 0
   m_Name: Platform
   m_TagString: Untagged
@@ -92,7 +92,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &2644677467051996698
+--- !u!114 &3600096993934595851
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -101,10 +101,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 6895356904543665415}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 34cf65451037f496eb90fa1ea40cc2cb, type: 3}
+  m_Script: {fileID: 11500000, guid: 066df3ac7eedc4104a3d1bc3debb47fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  soldierPrefab: {fileID: 9139065919804919002, guid: 03b88ed9a41af497a8850ee2d5e350b6,
-    type: 3}
-  spawnSpeed: 1
-  lastSpawnTime: 0
