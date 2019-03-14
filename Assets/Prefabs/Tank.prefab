@@ -93,12 +93,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7ef7635fdf8b4bf1967134961bb6084, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1
   aimingSpeed: 3
-  health: 10
-  range: 5
-  minRange: 2
   attackSpeed: 0.5
+  price: 10
+  health: 10
+  minRange: 2
+  range: 5
+  speed: 1
   bulletPrefab: {fileID: 2625857677400097320, guid: 3fe85e2e7a71146c9abd73e19068cfcb,
     type: 3}
   target: {fileID: 9139065919804919002}

@@ -1,27 +1,27 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class WeaponManager : MonoBehaviour
 {
-
-    public GameObject soldierPrefab;
-    public GameObject tankPrefab;
-    public GameObject MissileLauncherPrefab;
-    private GameObject weapon;
-    private GameObject weaponToCreate;
+    private float countDown = 2f;
 
     GameManager gameManager;
+    public GameObject missileLauncherPrefab;
+    private float randomizeSpawn = 3f; //for spawnwave to spawn different places
+
+    public GameObject soldierPrefab;
+    private Transform spawnPoint;
+    public GameObject tankPrefab;
 
     //-------wave spawn variables
     public float timeBetweenWaves = 5f;
-    private float countDown = 2f;
+    public Text waveCountdownText;
     private int waveIndex = 0;
     private float waveSeparator = 0.5f; //sepearete instantiations in wave
-    private Transform spawnPoint;
-    private float randomizeSpawn = 3f; //for spawnwave to spawn different places
-    public Text waveCountdownText;
+    private GameObject weapon;
+
+    private GameObject weaponToCreate;
     //--------
 
     // Start is called before the first frame update
@@ -39,11 +39,13 @@ public class WeaponManager : MonoBehaviour
             StartCoroutine(SpawnWave());
             countDown = timeBetweenWaves;
         }
+
         countDown -= Time.deltaTime;
-        waveCountdownText.text = ((int)(countDown + 1f)).ToString();
+        countDown = Mathf.Clamp(countDown, 0f, Mathf.Infinity);
+        waveCountdownText.text = string.Format("{0:00.00}", countDown);
     }
 
-    //make it coroutine to seperate instantiations from each other
+    //make it coroutine to separate instantiations from each other
     IEnumerator SpawnWave()
     {
         waveIndex++;
@@ -57,7 +59,8 @@ public class WeaponManager : MonoBehaviour
 
     void SpawnTeamRedWeapon()
     {
-        weapon = Instantiate(tankPrefab, new Vector2(spawnPoint.position.x, spawnPoint.position.y + randomizeSpawn), Quaternion.identity);
+        weapon = Instantiate(tankPrefab, new Vector2(spawnPoint.position.x, spawnPoint.position.y + randomizeSpawn),
+            Quaternion.identity);
         weapon.tag = "TeamRed";
     }
 

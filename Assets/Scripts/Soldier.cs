@@ -1,3 +1,3 @@
-﻿public class Soldier : Vehicle
+﻿public class Soldier : Weapon
 {
 }

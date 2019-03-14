@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Shop : MonoBehaviour
 {
@@ -16,26 +14,23 @@ public class Shop : MonoBehaviour
     // Update is called once per frame
     public void Update()
     {
-        
     }
 
-    public void PurchaseSoldier()
+    public void SelectSoldier()
     {
-        Debug.Log("Soldier purchased");
+        Debug.Log("Soldier selected");
         gameManager.weaponManagerScript.SetWeaponToCreate(gameManager.weaponManagerScript.soldierPrefab);
     }
 
-    public void PurchaseTank()
+    public void SelectTank()
     {
-        Debug.Log("Tank purchased");
+        Debug.Log("Tank selected");
         gameManager.weaponManagerScript.SetWeaponToCreate(gameManager.weaponManagerScript.tankPrefab);
     }
 
-    public void PurchaseMissileLauncher()
+    public void SelectMissileLauncher()
     {
-        Debug.Log("MissileLauncher purchased");
-        gameManager.weaponManagerScript.SetWeaponToCreate(gameManager.weaponManagerScript.MissileLauncherPrefab);
+        Debug.Log("MissileLauncher selected");
+        gameManager.weaponManagerScript.SetWeaponToCreate(gameManager.weaponManagerScript.missileLauncherPrefab);
     }
-
-
 }
