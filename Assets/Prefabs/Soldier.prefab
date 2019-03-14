@@ -1,5 +1,35 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8114953893797632746
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 59529920932320141}
+  m_Layer: 0
+  m_Name: Muzzle
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &59529920932320141
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114953893797632746}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.014, y: 0.528, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 9139065921893953865}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &9139065919804919002
 GameObject:
   m_ObjectHideFlags: 0
@@ -46,12 +76,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 657bd6431c9d048a983a0643713ea4b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1
   aimingSpeed: 10
-  health: 3
-  range: 5
-  minRange: 0.75
   attackSpeed: 1
+  price: 1
+  health: 3
+  minRange: 0.75
+  range: 5
+  speed: 1
   bulletPrefab: {fileID: 2625857677400097320, guid: 3fe85e2e7a71146c9abd73e19068cfcb,
     type: 3}
   target: {fileID: 9139065919804919002, guid: 8800f938fe9874dbc98c993504c8d008, type: 3}
@@ -119,7 +150,8 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.0042800996, y: 0.09589499, z: 0}
   m_LocalScale: {x: 0.2880118, y: 0.28258255, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 59529920932320141}
   m_Father: {fileID: 9139065919804918996}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

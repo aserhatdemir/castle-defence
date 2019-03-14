@@ -1,3 +1,3 @@
-﻿public class MissileLauncher : Vehicle
+﻿public class MissileLauncher : Weapon
 {
 }
