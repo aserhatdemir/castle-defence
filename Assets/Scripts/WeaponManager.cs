@@ -42,13 +42,14 @@ public class WeaponManager : MonoBehaviour
 
         countDown -= Time.deltaTime;
         countDown = Mathf.Clamp(countDown, 0f, Mathf.Infinity);
-        waveCountdownText.text = string.Format("{0:00.00}", countDown);
+        waveCountdownText.text = "Next Wave: " + string.Format("{0:00.0}", countDown);
     }
 
     //make it coroutine to separate instantiations from each other
     IEnumerator SpawnWave()
     {
         waveIndex++;
+        PlayerStats.Rounds++;
         randomizeSpawn = Random.Range(-3f, 3f);
         for (int i = 0; i < waveIndex; i++)
         {
