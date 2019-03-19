@@ -3,7 +3,7 @@
 public class GameManager : MonoBehaviour
 {
     public static GameManager
-        instance = null; //Static instance of GameManager which allows it to be accessed by any other script.
+        instance; //Static instance of GameManager which allows it to be accessed by any other script.
 
     //private int level = 3;                                  //Current level number, expressed in game as "Day 1".
     public static bool GameIsOver;
@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
     public WeaponManager weaponManagerScript; //Store a reference to our WeaponManager.
 
     //Awake is always called before any Start functions
-    void Awake()
+    private void Awake()
     {
         //Check if instance already exists
         if (instance == null)
