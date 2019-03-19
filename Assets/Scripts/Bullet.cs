@@ -46,24 +46,6 @@ public class Bullet : MonoBehaviour
                 Destroy(dEffect, 1f);
             }
         }
-//        else if (collision.gameObject.GetComponent<Tank>())
-//        {
-//            Tank enemy = collision.gameObject.GetComponent<Tank>();
-//            enemy.health -= damage;
-//            if (enemy.health <= 0)
-//            {
-//                Destroy(collision.gameObject);
-//            }
-//        }
-//        else if (collision.gameObject.GetComponent<MissileLauncher>())
-//        {
-//            MissileLauncher enemy = collision.gameObject.GetComponent<MissileLauncher>();
-//            enemy.health -= damage;
-//            if (enemy.health <= 0)
-//            {
-//                Destroy(collision.gameObject);
-//            }
-//        }
         else if (collision.gameObject.GetComponent<Castle>())
         {
             Castle enemy = collision.gameObject.GetComponent<Castle>();

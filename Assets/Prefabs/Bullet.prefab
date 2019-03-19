@@ -94,12 +94,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d586d8848810e4b0d8ca2f59f40748bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 1
+  damage: 10
+  destroyEffectPrefab: {fileID: 7890960156137460366, guid: 7e0065385eef14e57b191d7cb3a2ed3b,
+    type: 3}
   direction: {x: 0, y: 0, z: 0}
   speed: 10
   targetTag: 
-  destroyEffectPrefab: {fileID: 7890960156137460366, guid: 7e0065385eef14e57b191d7cb3a2ed3b,
-    type: 3}
 --- !u!58 &2589313451753473585
 CircleCollider2D:
   m_ObjectHideFlags: 0
