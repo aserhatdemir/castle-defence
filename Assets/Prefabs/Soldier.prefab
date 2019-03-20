@@ -39,9 +39,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9139065919804918996}
-  - component: {fileID: 5860765820798586933}
   - component: {fileID: 3354783646044925383}
   - component: {fileID: 5551712648186170929}
+  - component: {fileID: 5860765820798586933}
   m_Layer: 0
   m_Name: Soldier
   m_TagString: Untagged
@@ -64,28 +64,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5860765820798586933
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9139065919804919002}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 657bd6431c9d048a983a0643713ea4b8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  aimingSpeed: 10
-  attackSpeed: 1
-  price: 1
-  health: 3
-  minRange: 0.75
-  range: 5
-  speed: 1
-  bulletPrefab: {fileID: 2625857677400097320, guid: 3fe85e2e7a71146c9abd73e19068cfcb,
-    type: 3}
-  target: {fileID: 9139065919804919002, guid: 8800f938fe9874dbc98c993504c8d008, type: 3}
 --- !u!50 &3354783646044925383
 Rigidbody2D:
   serializedVersion: 4
@@ -123,6 +101,28 @@ CircleCollider2D:
   m_Offset: {x: 0.0059589893, y: 0.078956544}
   serializedVersion: 2
   m_Radius: 0.1379913
+--- !u!114 &5860765820798586933
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9139065919804919002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 657bd6431c9d048a983a0643713ea4b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  aimingSpeed: 10
+  attackSpeed: 1
+  bulletPrefab: {fileID: 2625857677400097320, guid: 3fe85e2e7a71146c9abd73e19068cfcb,
+    type: 3}
+  health: 3
+  minRange: 0.75
+  price: 1
+  range: 5
+  speed: 1
+  target: {fileID: 9139065919804919002, guid: 8800f938fe9874dbc98c993504c8d008, type: 3}
 --- !u!1 &9139065921893953864
 GameObject:
   m_ObjectHideFlags: 0
