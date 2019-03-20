@@ -13,6 +13,9 @@ public class WeaponManager : MonoBehaviour
     public GameObject soldierPrefab;
     private Transform spawnPoint;
     public GameObject tankPrefab;
+    public GameObject tank1Prefab;
+    public GameObject tank2Prefab;
+    public GameObject tank3Prefab;
 
     //-------wave spawn variables
     public float timeBetweenWaves = 5f;

@@ -100,8 +100,8 @@ public class Weapon : MonoBehaviour
         if (!IsInRange(target)) return;
         if (!target || !(Time.time - lastFireTime > 1f / attackSpeed)) return;
         lastFireTime = Time.time;
-        var bullet1 = Instantiate(bulletPrefab, muzzle.position, transform.rotation);
-        //bullet1.direction = soldierMuzzle.right;
+        var bullet1 = Instantiate(bulletPrefab, transform.position, transform.rotation);
+//        var bullet1 = Instantiate(bulletPrefab, muzzle.position, transform.rotation);
         bullet1.direction = (target.transform.position - transform.position).normalized;
         bullet1.targetTag = enemyTag;
     }
