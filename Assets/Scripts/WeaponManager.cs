@@ -63,7 +63,8 @@ public class WeaponManager : MonoBehaviour
 
     void SpawnTeamRedWeapon()
     {
-        weapon = Instantiate(tankPrefab, new Vector2(spawnPoint.position.x, spawnPoint.position.y + randomizeSpawn),
+        weapon = Instantiate(tankPrefab,
+            (Vector2) Random.insideUnitCircle * 2 + new Vector2(spawnPoint.position.x, spawnPoint.position.y),
             Quaternion.identity);
         weapon.tag = "TeamRed";
     }

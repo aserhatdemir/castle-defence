@@ -20,7 +20,7 @@ public class Platform : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if (!this.CompareTag("TeamBlue")) return;
+        if (this.name != "BlueSide") return;
         weaponToCreate = gameManager.weaponManagerScript.GetWeaponToCreate();
         if (weaponToCreate == null)
             return;

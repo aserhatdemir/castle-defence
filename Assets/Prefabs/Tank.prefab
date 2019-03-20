@@ -1,5 +1,66 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3689394141784856618
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5940122460163078500}
+  m_Layer: 0
+  m_Name: Muzzle
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5940122460163078500
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3689394141784856618}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0, y: 0.531, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 9139065921893953865}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6344023355871236554
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4242813589092857408}
+  m_Layer: 0
+  m_Name: Gun
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4242813589092857408
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6344023355871236554}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 2.5700336, y: 2.5893319, z: 1}
+  m_Children:
+  - {fileID: 9139065921893953865}
+  m_Father: {fileID: 9139065921070639381}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &9139065919804919002
 GameObject:
   m_ObjectHideFlags: 0
@@ -73,8 +134,8 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 0.0001
-  m_LinearDrag: 0
-  m_AngularDrag: 0
+  m_LinearDrag: 1
+  m_AngularDrag: 1
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
@@ -94,15 +155,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   aimingSpeed: 3
+  aimingState: 0
   attackSpeed: 0.5
-  price: 10
-  health: 10
-  minRange: 2
-  range: 5
-  speed: 1
   bulletPrefab: {fileID: 2625857677400097320, guid: 3fe85e2e7a71146c9abd73e19068cfcb,
     type: 3}
+  health: 10
+  lastAngle: 0
+  lastDistance: 0
+  maxSpeed: 3
+  minRange: 0
+  movementState: 1
+  price: 10
+  range: 3
+  speed: 2
   target: {fileID: 9139065919804919002}
+  slowUpdateTime: 0
+  updateSpeed: 1
 --- !u!1 &9139065921070639380
 GameObject:
   m_ObjectHideFlags: 0
@@ -127,14 +195,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9139065921070639380}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.009, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.3891, y: 0.3862, z: 1}
   m_Children:
-  - {fileID: 9139065921893953865}
+  - {fileID: 4242813589092857408}
   m_Father: {fileID: 9139065919804918996}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
 --- !u!212 &9139065921070639382
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -208,10 +276,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9139065921893953864}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.011, y: 0.225, z: 0}
-  m_LocalScale: {x: 0.7402, y: 0.7317, z: 1}
-  m_Children: []
-  m_Father: {fileID: 9139065921070639381}
+  m_LocalPosition: {x: 0, y: 0.025, z: 0}
+  m_LocalScale: {x: 0.2880118, y: 0.28258255, z: 1}
+  m_Children:
+  - {fileID: 5940122460163078500}
+  m_Father: {fileID: 4242813589092857408}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &9139065921893953866
