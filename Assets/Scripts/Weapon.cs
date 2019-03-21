@@ -2,47 +2,84 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
+    public enum AimingState
+    {
+        NOT_AIMING,
+        AIMING,
+        ATTACKING
+    }
+
+    public enum MovementState
+    {
+        MOVING,
+        STOPPED
+    }
+
+    private readonly float minAttackAngle = 2f;
+
     public float aimingSpeed = 3f;
+    public AimingState aimingState = AimingState.NOT_AIMING;
     public float attackSpeed = 5f;
 
     public Bullet bulletPrefab;
 
     private Castle enemyCastle;
     private string enemyTag;
+
+    private Transform gun;
     private Transform head;
     public float health = 10f;
+    public float lastAngle;
+
+    public float lastDistance;
     private float lastFireTime;
+    public float maxSpeed = 1f;
     public float minRange = 2;
+    public MovementState movementState = MovementState.STOPPED;
     private Transform muzzle;
+    private Transform muzzle1;
+    private Transform muzzle2;
     private GameObject[] possibleTargets;
     public int price = 20;
     public float range = 5;
     public float speed = 1f;
+
     public GameObject target;
 
+    public float slowUpdateTime;
+    public float updateSpeed = 1f;
 
     private void Start()
     {
         //decide the team
         enemyTag = CompareTag("TeamBlue") ? "TeamRed" : "TeamBlue";
+        gun = transform.Find("Base").Find("Gun");
 
-        head = transform.GetChild(0);
-        muzzle = transform.GetChild(0).GetChild(0);
-        lastFireTime = Time.time;
+        head = gun.Find("Head");
+        muzzle = head.Find("Muzzle");
+        muzzle1 = head.Find("Muzzle-1");
+        muzzle2 = head.Find("Muzzle-2");
+        slowUpdateTime = lastFireTime = Time.time;
 
-        InvokeRepeating(nameof(FindClosestEnemy), 0.1f, 0.4f);
+//        InvokeRepeating(nameof(SlowUpdate), 0.1f, 0.4f);
     }
 
     private void FixedUpdate()
     {
-        //FindClosestEnemy();
+        if (GameManager.GameIsOver) return;
+        if (slowUpdateTime + updateSpeed > Time.time)
+        {
+            slowUpdateTime = Time.time;
+            SlowUpdate();
+        }
+
         AimTarget();
         ApproachTarget();
-        if (!GameManager.GameIsOver)
-            Fire();
+        Fire();
     }
 
-    private void FindClosestEnemy()
+
+    private GameObject FindClosestTarget()
     {
         possibleTargets = GameObject.FindGameObjectsWithTag(enemyTag);
         GameObject closest = null;
@@ -52,72 +89,104 @@ public class Weapon : MonoBehaviour
         {
             var diff = enemy.transform.position - position;
             var curDistance = diff.sqrMagnitude;
-            if (curDistance < distance)
-            {
-                closest = enemy;
-                distance = curDistance;
-            }
+            if (!(curDistance < distance)) continue;
+            closest = enemy;
+            distance = curDistance;
         }
 
-        target = closest;
+        return closest;
+    }
+
+    private void SlowUpdate()
+    {
+        var closestTarget = FindClosestTarget();
+        target = closestTarget;
+        if (!target)
+        {
+            movementState = MovementState.STOPPED;
+            aimingState = AimingState.NOT_AIMING;
+            return;
+        }
+
+        lastDistance = Distance(closestTarget);
+
+        if (lastDistance > range)
+        {
+            movementState = MovementState.MOVING;
+            speed = maxSpeed;
+            aimingState = AimingState.AIMING;
+        }
+
+        if (range * .5f < lastDistance && range > lastDistance)
+        {
+            var f1 = Mathf.Abs(lastDistance - range) / range;
+            var f = speed = maxSpeed * (1f - f1);
+            movementState = MovementState.MOVING;
+            aimingState = AimingState.AIMING;
+        }
+
+        if (range * .5f > lastDistance)
+        {
+            movementState = MovementState.STOPPED;
+            aimingState = AimingState.AIMING;
+        }
+
+        lastAngle = Mathf.Abs(FindAngle(target));
+
+        if (minAttackAngle > lastAngle && range > lastDistance) aimingState = AimingState.ATTACKING;
     }
 
     private void AimTarget()
     {
-        //Vector2 pos = (Vector2)target.transform.position;
-        //Vector2 dir = new Vector2(pos.x, pos.y) - (Vector2)transform.position;
-        //float angle = Mathf.Atan2(dir.x, dir.y) * Mathf.Rad2Deg;
-        //Quaternion neededRotation = Quaternion.LookRotation(Vector3.forward, dir - (Vector2)transform.position);
-        //transform.rotation = Quaternion.Slerp(transform.rotation, neededRotation, aimingSpeed * Time.deltaTime);
-
+        if (aimingState != AimingState.AIMING) return;
         if (!target) return;
-        var dir = target.transform.position - transform.position;
-        var angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.AngleAxis(angle - 90, Vector3.forward);
+        var vectorToTarget = target.transform.position - transform.position;
+        var angle = Mathf.Atan2(vectorToTarget.y, vectorToTarget.x) * Mathf.Rad2Deg;
+        var q = Quaternion.AngleAxis(angle - 90f, Vector3.forward);
+        gun.rotation = Quaternion.Slerp(gun.rotation, q, Time.deltaTime * aimingSpeed);
+        transform.rotation = Quaternion.Slerp(transform.rotation, q, Time.deltaTime * speed);
     }
 
-    private bool IsAimingFinished()
-    {
-        if (target == null) return false;
-        var pos = target.transform.position;
-        var dir = new Vector2(pos.x, pos.y) - (Vector2) transform.position;
-        var angle = Mathf.Atan2(dir.x, dir.y) * Mathf.Rad2Deg;
-
-        return angle < 1.0f;
-    }
 
     private void ApproachTarget()
     {
+        if (movementState != MovementState.MOVING) return;
         if (!target) return;
-        if (IsTooClose(target))
-            return;
-        transform.position =
-            Vector2.MoveTowards(transform.position, target.transform.position, speed * Time.deltaTime);
+        transform.Translate((Vector2) transform.up * speed * Time.deltaTime, Space.World);
     }
 
     private void Fire()
     {
-        if (!IsInRange(target)) return;
+        if (aimingState != AimingState.ATTACKING) return;
         if (!target || !(Time.time - lastFireTime > 1f / attackSpeed)) return;
         lastFireTime = Time.time;
-        var bullet1 = Instantiate(bulletPrefab, transform.position, transform.rotation);
+        var bullet1 = Instantiate(bulletPrefab, muzzle.position, Quaternion.identity);
 //        var bullet1 = Instantiate(bulletPrefab, muzzle.position, transform.rotation);
-        bullet1.direction = (target.transform.position - transform.position).normalized;
+        bullet1.direction = (muzzle.position - head.position).normalized;
         bullet1.targetTag = enemyTag;
     }
 
     private bool IsInRange(GameObject enemy)
     {
-        return enemy != null && range > Distance(enemy);
+        return enemy && range > Distance(enemy);
     }
 
     private bool IsTooClose(GameObject enemy)
     {
-        return enemy != null && minRange > Distance(enemy);
+        return enemy && minRange > Distance(enemy);
     }
 
     private float Distance(GameObject obj)
     {
         return (transform.position - obj.transform.position).magnitude;
+    }
+
+    private float FindAngle(GameObject go)
+    {
+        if (go is null)
+            return Mathf.Infinity;
+        var position = head.position;
+        var angle = Vector2.Angle(muzzle.position - position, go.transform.position - position);
+        return angle;
     }
 }
