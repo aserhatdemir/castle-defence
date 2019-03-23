@@ -5,7 +5,12 @@ public class Weapon : MonoBehaviour
     public enum AimingState
     {
         NOT_AIMING,
-        AIMING,
+        AIMING
+    }
+
+    public enum AttackingState
+    {
+        NOT_ATTACKING,
         ATTACKING
     }
 
@@ -15,11 +20,21 @@ public class Weapon : MonoBehaviour
         STOPPED
     }
 
-    private readonly float minAttackAngle = 2f;
+    public int price = 20;
+    public float health = 10f;
+    public float range = 5;
+    public float minRange = 2;
+    public float speed = 1f;
+    public float maxSpeed = 1f;
 
-    public float aimingSpeed = 3f;
-    public AimingState aimingState = AimingState.NOT_AIMING;
     public float attackSpeed = 5f;
+    public float minAttackAngle = 2f;
+    public float aimingStopAngle = 1f;
+    public float aimingSpeed = 3f;
+
+    public AimingState aimingState = AimingState.NOT_AIMING;
+    public MovementState movementState = MovementState.STOPPED;
+    public AttackingState attackState = AttackingState.NOT_ATTACKING;
 
     public Bullet bulletPrefab;
 
@@ -28,21 +43,14 @@ public class Weapon : MonoBehaviour
 
     private Transform gun;
     private Transform head;
-    public float health = 10f;
     public float lastAngle;
 
     public float lastDistance;
     private float lastFireTime;
-    public float maxSpeed = 1f;
-    public float minRange = 2;
-    public MovementState movementState = MovementState.STOPPED;
     private Transform muzzle;
     private Transform muzzle1;
     private Transform muzzle2;
     private GameObject[] possibleTargets;
-    public int price = 20;
-    public float range = 5;
-    public float speed = 1f;
 
     public GameObject target;
 
@@ -133,7 +141,9 @@ public class Weapon : MonoBehaviour
 
         lastAngle = Mathf.Abs(FindAngle(target));
 
-        if (minAttackAngle > lastAngle && range > lastDistance) aimingState = AimingState.ATTACKING;
+        if (lastAngle > aimingStopAngle) aimingState = AimingState.AIMING;
+
+        if (minAttackAngle > lastAngle && range > lastDistance) attackState = AttackingState.ATTACKING;
     }
 
     private void AimTarget()
@@ -157,12 +167,15 @@ public class Weapon : MonoBehaviour
 
     private void Fire()
     {
-        if (aimingState != AimingState.ATTACKING) return;
+        if (attackState != AttackingState.ATTACKING) return;
         if (!target || !(Time.time - lastFireTime > 1f / attackSpeed)) return;
         lastFireTime = Time.time;
-        var bullet1 = Instantiate(bulletPrefab, muzzle.position, Quaternion.identity);
+        var muzzlePosition = muzzle.position;
+        var bulletDirection = (Vector2) (muzzlePosition - head.position).normalized;
+        var bullet1 = Instantiate(bulletPrefab, muzzlePosition,
+            muzzle.rotation);
 //        var bullet1 = Instantiate(bulletPrefab, muzzle.position, transform.rotation);
-        bullet1.direction = (muzzle.position - head.position).normalized;
+        bullet1.direction = bulletDirection;
         bullet1.targetTag = enemyTag;
     }
 

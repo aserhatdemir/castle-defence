@@ -133,9 +133,9 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 0.0001
-  m_LinearDrag: 1
-  m_AngularDrag: 1
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
@@ -154,20 +154,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7ef7635fdf8b4bf1967134961bb6084, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  price: 10
+  health: 25
+  range: 3
+  minRange: 0
+  speed: 2
+  maxSpeed: 3
+  attackSpeed: 0.5
+  minAttackAngle: 2
+  aimingTresholdAngle: 1
   aimingSpeed: 3
   aimingState: 0
-  attackSpeed: 0.5
-  bulletPrefab: {fileID: 2625857677400097320, guid: 3fe85e2e7a71146c9abd73e19068cfcb,
+  movementState: 1
+  attackState: 0
+  bulletPrefab: {fileID: 2625857677400097320, guid: ad7ef95407ea749a0836f5ff501c25b2,
     type: 3}
-  health: 10
   lastAngle: 0
   lastDistance: 0
-  maxSpeed: 3
-  minRange: 0
-  movementState: 1
-  price: 10
-  range: 3
-  speed: 2
   target: {fileID: 9139065919804919002}
   slowUpdateTime: 0
   updateSpeed: 1
@@ -195,14 +198,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9139065921070639380}
-  m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.3891, y: 0.3862, z: 1}
   m_Children:
   - {fileID: 4242813589092857408}
   m_Father: {fileID: 9139065919804918996}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &9139065921070639382
 SpriteRenderer:
   m_ObjectHideFlags: 0
