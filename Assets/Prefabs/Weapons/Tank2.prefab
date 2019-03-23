@@ -408,7 +408,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -426,20 +426,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 378fa60488c574de4a468462881453cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  price: 10
+  health: 25
+  range: 7
+  minRange: 2
+  speed: 1
+  maxSpeed: 1
+  attackSpeed: 5
+  minAttackAngle: 5
+  aimingTresholdAngle: 1
   aimingSpeed: 2
   aimingState: 0
-  attackSpeed: 5
-  bulletPrefab: {fileID: 2625857677400097320, guid: 3fe85e2e7a71146c9abd73e19068cfcb,
+  movementState: 1
+  attackState: 0
+  bulletPrefab: {fileID: 2625857677400097320, guid: ad7ef95407ea749a0836f5ff501c25b2,
     type: 3}
-  health: 10
   lastAngle: 0
   lastDistance: 0
-  maxSpeed: 1
-  minRange: 2
-  movementState: 1
-  price: 10
-  range: 7
-  speed: 1
   target: {fileID: 9139065919804919002, guid: 8800f938fe9874dbc98c993504c8d008, type: 3}
   slowUpdateTime: 0
   updateSpeed: 1
