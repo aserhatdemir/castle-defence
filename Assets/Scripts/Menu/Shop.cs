@@ -16,17 +16,17 @@ public class Shop : MonoBehaviour
     {
     }
 
-    public void SelectSoldier()
+    public void SelectTank1()
     {
         gameManager.weaponManagerScript.SetWeaponToCreate(gameManager.weaponManagerScript.tank1Prefab);
     }
 
-    public void SelectTank()
+    public void SelectTank2()
     {
         gameManager.weaponManagerScript.SetWeaponToCreate(gameManager.weaponManagerScript.tank2Prefab);
     }
 
-    public void SelectMissileLauncher()
+    public void SelectTank3()
     {
         gameManager.weaponManagerScript.SetWeaponToCreate(gameManager.weaponManagerScript.tank3Prefab);
     }
