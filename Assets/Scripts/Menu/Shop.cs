@@ -18,16 +18,19 @@ public class Shop : MonoBehaviour
 
     public void SelectTank1()
     {
+        Debug.Log("Tank1 selected");
         gameManager.weaponManagerScript.SetWeaponToCreate(gameManager.weaponManagerScript.tank1Prefab);
     }
 
     public void SelectTank2()
     {
+        Debug.Log("Tank1 selected");
         gameManager.weaponManagerScript.SetWeaponToCreate(gameManager.weaponManagerScript.tank2Prefab);
     }
 
     public void SelectTank3()
     {
+        Debug.Log("Tank1 selected");
         gameManager.weaponManagerScript.SetWeaponToCreate(gameManager.weaponManagerScript.tank3Prefab);
     }
 }

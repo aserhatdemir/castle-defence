@@ -816,12 +816,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 11500000, guid: 47dc904d8e6f240f292f645ace8b4a72,
-        type: 3}
+      objectReference: {fileID: 1989589275}
     - target: {fileID: 5311426365647076324, guid: 1f394f026ad6b450eae67b7dcdb458d1,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: 
+      value: SelectTank1
       objectReference: {fileID: 0}
     - target: {fileID: 5311426365647076324, guid: 1f394f026ad6b450eae67b7dcdb458d1,
         type: 3}
@@ -831,7 +830,7 @@ PrefabInstance:
     - target: {fileID: 5311426365647076324, guid: 1f394f026ad6b450eae67b7dcdb458d1,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: 
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 5311426364616257756, guid: 1f394f026ad6b450eae67b7dcdb458d1,
         type: 3}
@@ -1128,7 +1127,7 @@ RectTransform:
   m_GameObject: {fileID: 751317885}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_Children: []
   m_Father: {fileID: 412453485}
   m_RootOrder: 1
@@ -1187,8 +1186,8 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 150
-  m_fontSizeBase: 150
+  m_fontSize: 1500
+  m_fontSizeBase: 1500
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -1538,15 +1537,15 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: 4.65
       objectReference: {fileID: 0}
-    - target: {fileID: 5828000637328854454, guid: 24374fd6da5814364bd0f3180254eb33,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0.030574799
-      objectReference: {fileID: 0}
     - target: {fileID: 5828000637200674094, guid: 24374fd6da5814364bd0f3180254eb33,
         type: 3}
       propertyPath: m_Direction
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5828000637328854454, guid: 24374fd6da5814364bd0f3180254eb33,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0.030574799
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 24374fd6da5814364bd0f3180254eb33, type: 3}
@@ -1691,7 +1690,27 @@ PrefabInstance:
     - target: {fileID: 5311426365647076324, guid: 1f394f026ad6b450eae67b7dcdb458d1,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5311426365647076324, guid: 1f394f026ad6b450eae67b7dcdb458d1,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1989589275}
+    - target: {fileID: 5311426365647076324, guid: 1f394f026ad6b450eae67b7dcdb458d1,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SelectTank2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5311426365647076324, guid: 1f394f026ad6b450eae67b7dcdb458d1,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5311426365647076324, guid: 1f394f026ad6b450eae67b7dcdb458d1,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 5311426364616257756, guid: 1f394f026ad6b450eae67b7dcdb458d1,
         type: 3}
@@ -1963,7 +1982,7 @@ RectTransform:
   m_GameObject: {fileID: 1159559664}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_Children: []
   m_Father: {fileID: 1267994520}
   m_RootOrder: 1
@@ -2022,8 +2041,8 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 150
-  m_fontSizeBase: 150
+  m_fontSize: 1500
+  m_fontSizeBase: 1500
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -3649,12 +3668,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 5311426365647076326, guid: 1f394f026ad6b450eae67b7dcdb458d1,
-        type: 3}
+      objectReference: {fileID: 1989589275}
     - target: {fileID: 5311426365647076324, guid: 1f394f026ad6b450eae67b7dcdb458d1,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: 
+      value: SelectTank3
       objectReference: {fileID: 0}
     - target: {fileID: 5311426365647076324, guid: 1f394f026ad6b450eae67b7dcdb458d1,
         type: 3}
@@ -3664,7 +3682,7 @@ PrefabInstance:
     - target: {fileID: 5311426365647076324, guid: 1f394f026ad6b450eae67b7dcdb458d1,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: 
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 5311426364616257756, guid: 1f394f026ad6b450eae67b7dcdb458d1,
         type: 3}
@@ -3700,7 +3718,7 @@ RectTransform:
   m_GameObject: {fileID: 2077556266}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_Children: []
   m_Father: {fileID: 1215009241}
   m_RootOrder: 1
@@ -3759,8 +3777,8 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 150
-  m_fontSizeBase: 150
+  m_fontSize: 1500
+  m_fontSizeBase: 1500
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
