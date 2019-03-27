@@ -35,7 +35,7 @@ public class Bullet : MonoBehaviour
             Weapon enemy = collision.gameObject.GetComponent<Weapon>();
             enemy.health -= damage;
             Vector3 enemyPosition = enemy.transform.position;
-            if (enemy.health <= 0)
+            if (enemy.health <= 0 && gameManager)
             {
                 PlayerStats.Money += enemy.price / 2; //give money back
                 gameManager.playerStatsScript.UpdateMoneyTextUI();

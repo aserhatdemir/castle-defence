@@ -1,11 +1,12 @@
 ﻿using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
+    public SceneFader sceneFader;
+    
     public void PlayGame()
     {
-        SceneManager.LoadScene("Game");
+        sceneFader.FadeTo("Campaigns");
     }
     
     public void QuitGame()
