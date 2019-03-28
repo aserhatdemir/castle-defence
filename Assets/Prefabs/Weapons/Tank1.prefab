@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1617903353834999501}
   - component: {fileID: 5150282446824534318}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Base
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -67,8 +67,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -284049269
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 6059ec6b0ed1a4ecb9dc0d471380d0c1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -90,7 +90,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6222352955380928365}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Muzzle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -121,7 +121,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5774589778521850725}
   - component: {fileID: 2938818454764296678}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -177,8 +177,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -1202868071
-  m_SortingLayer: 1
+  m_SortingLayerID: -1319134111
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 6c3f1fc02ff6f4d21aa91f8c1baeda71, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -201,7 +201,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1655767826439375488}
   - component: {fileID: 2982097722973767469}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Palette
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -256,8 +256,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 1165952243
-  m_SortingLayer: -1
+  m_SortingLayerID: -1202868071
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 33aef8eba8c2d406fb1db337b32902b7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -282,7 +282,7 @@ GameObject:
   - component: {fileID: 4109500605571539666}
   - component: {fileID: 3357362016952799380}
   - component: {fileID: 3216400227484401613}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Tank1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -363,21 +363,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08cf9b6fb5d1a4afb9b42b8bbda9c654, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  price: 5
+  health: 10
+  range: 5
+  minRange: 0.3
+  speed: 1
+  maxSpeed: 2
+  attackSpeed: 6
   minAttackAngle: 15
+  aimingStopAngle: 1
   aimingSpeed: 3
   aimingState: 0
-  attackSpeed: 6
+  movementState: 1
+  attackState: 0
   bulletPrefab: {fileID: 2625857677400097320, guid: ad7ef95407ea749a0836f5ff501c25b2,
     type: 3}
-  health: 10
   lastAngle: 0
   lastDistance: 0
-  maxSpeed: 2
-  minRange: 0.3
-  movementState: 1
-  price: 5
-  range: 5
-  speed: 1
   target: {fileID: 9139065919804919002, guid: 8800f938fe9874dbc98c993504c8d008, type: 3}
   slowUpdateTime: 0
   updateSpeed: 1
@@ -390,7 +392,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7198798530818639185}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Gun
   m_TagString: Untagged
   m_Icon: {fileID: 0}

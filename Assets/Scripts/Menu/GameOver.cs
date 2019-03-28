@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameOver : MonoBehaviour
@@ -7,6 +8,13 @@ public class GameOver : MonoBehaviour
     public Text totalTimeText;
     public Text winLoseText;
     public SceneFader sceneFader;
+
+    private string sceneName;
+
+    private void Start()
+    {
+        sceneName = SceneManager.GetActiveScene().name;
+    }
 
     private void OnEnable()
     {
@@ -17,7 +25,7 @@ public class GameOver : MonoBehaviour
 
     public void Retry()
     {
-        sceneFader.FadeTo("Game");
+        sceneFader.FadeTo(sceneName);
     }
 
     public void Menu()

@@ -46,6 +46,15 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: forward
+  - name: Layer1
     uniqueID: 3092099225
+    locked: 0
+  - name: Layer2
+    uniqueID: 4010918027
+    locked: 0
+  - name: Layer3
+    uniqueID: 2975833185
+    locked: 0
+  - name: Front
+    uniqueID: 619774637
     locked: 0

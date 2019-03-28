@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4800952759558669763}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Muzzle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40,7 +40,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1617903353834999501}
   - component: {fileID: 5150282446824534318}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Base
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -97,8 +97,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -284049269
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 2ea42d7deeafd4ff888a9567f0fbe744, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -121,7 +121,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5774589778521850725}
   - component: {fileID: 2938818454764296678}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -179,8 +179,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -1202868071
-  m_SortingLayer: 1
+  m_SortingLayerID: -1319134111
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 18b224084bbdf4eddb013db9f9dc4538, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -202,7 +202,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1534030747434151866}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Muzzle-2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -233,7 +233,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1655767826439375488}
   - component: {fileID: 2982097722973767469}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Palette
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -288,8 +288,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 1165952243
-  m_SortingLayer: -1
+  m_SortingLayerID: -1202868071
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 33aef8eba8c2d406fb1db337b32902b7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -311,7 +311,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2257959480088958835}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Gun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -345,7 +345,7 @@ GameObject:
   - component: {fileID: 4109500605571539666}
   - component: {fileID: 3357362016952799380}
   - component: {fileID: 7951625009604604652}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Tank2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -434,7 +434,7 @@ MonoBehaviour:
   maxSpeed: 1
   attackSpeed: 5
   minAttackAngle: 5
-  aimingTresholdAngle: 1
+  aimingStopAngle: 1
   aimingSpeed: 2
   aimingState: 0
   movementState: 1
@@ -455,7 +455,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3174917827643556491}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Muzzle-1
   m_TagString: Untagged
   m_Icon: {fileID: 0}

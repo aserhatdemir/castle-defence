@@ -4,9 +4,14 @@ public class CampaignSelect : MonoBehaviour
 {
     public SceneFader sceneFader;
     
-    public void PlayCampaing1()
+    public void PlayCampaign1()
     {
-        sceneFader.FadeTo("Game");
+        sceneFader.FadeTo("Campaign1");
+    }
+    
+    public void PlayCampaign2()
+    {
+        sceneFader.FadeTo("Campaign2");
     }
 
     public void ReturnMenu()
