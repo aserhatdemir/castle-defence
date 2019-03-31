@@ -26,11 +26,12 @@ public class Weapon : MonoBehaviour
     public float minRange = 2;
     public float speed = 1f;
     public float maxSpeed = 1f;
-
     public float attackSpeed = 5f;
     public float minAttackAngle = 2f;
     public float aimingStopAngle = 1f;
     public float aimingSpeed = 3f;
+
+    public float productionTime;
 
     public AimingState aimingState = AimingState.NOT_AIMING;
     public MovementState movementState = MovementState.STOPPED;

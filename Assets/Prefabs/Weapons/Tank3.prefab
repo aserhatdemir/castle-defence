@@ -708,6 +708,7 @@ MonoBehaviour:
   minAttackAngle: 1
   aimingStopAngle: 1
   aimingSpeed: 1
+  productionTime: 3
   aimingState: 0
   movementState: 1
   attackState: 0

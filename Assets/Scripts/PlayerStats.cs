@@ -1,5 +1,5 @@
-﻿using UnityEngine;
-using UnityEngine.UI;
+﻿using TMPro;
+using UnityEngine;
 
 public class PlayerStats : MonoBehaviour
 {
@@ -7,10 +7,10 @@ public class PlayerStats : MonoBehaviour
     public static int Rounds;
     public static float TotalTime;
     public static bool YouWon;
-    public Text moneyText;
+    public TextMeshProUGUI moneyText;
+    public TextMeshProUGUI totalTimeText;
 
     public int startMoney = 100;
-    public Text totalTimeText;
 
 
 //    public int life = 10;
@@ -31,7 +31,7 @@ public class PlayerStats : MonoBehaviour
         if (GameManager.GameIsOver) return;
         TotalTime += Time.deltaTime;
         TotalTime = Mathf.Clamp(TotalTime, 0f, Mathf.Infinity);
-        totalTimeText.text = "Total Time: " + string.Format("{0:00.0}", TotalTime);
+        totalTimeText.text = string.Format("{0:00.0}", TotalTime);
     }
 
     public void UpdateMoneyTextUI()
