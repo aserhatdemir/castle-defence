@@ -45,9 +45,9 @@ public class Bullet : MonoBehaviour
                 Destroy(dEffect, 1f);
             }
         }
-        else if (collision.gameObject.GetComponent<Castle>())
+        else if (collision.gameObject.GetComponent<Building>())
         {
-            Castle enemy = collision.gameObject.GetComponent<Castle>();
+            Building enemy = collision.gameObject.GetComponent<Building>();
             enemy.UpdateHealth(damage * -1f);
         }
         else

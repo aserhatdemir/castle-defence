@@ -25,6 +25,7 @@ public class WeaponManager : MonoBehaviour
     private GameObject weapon;
 
     private GameObject weaponToCreate;
+
     //--------
 
     // Start is called before the first frame update
@@ -77,5 +78,25 @@ public class WeaponManager : MonoBehaviour
     public GameObject GetWeaponToCreate()
     {
         return weaponToCreate;
+    }
+
+    public void CreateWeapon(GameObject prefab, Factory factory)
+    {
+        var transform1 = factory.transform.Find("Gate");
+        var position = transform1.position;
+
+        weapon = Instantiate(prefab, new Vector2(position.x, position.y),
+            transform1.rotation);
+        weapon.tag = "TeamBlue";
+    }
+
+    public void UpgradeWeapon(GameObject prefab)
+    {
+        var weaponPrefab = prefab.GetComponent<Weapon>();
+        weaponPrefab.health *= 1.1f;
+        weaponPrefab.range *= 1.1f;
+        weaponPrefab.speed *= 1.1f;
+        weaponPrefab.aimingSpeed *= 1.1f;
+        weaponPrefab.attackSpeed *= 1.1f;
     }
 }
