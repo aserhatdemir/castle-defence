@@ -14,9 +14,9 @@ public class Factory : Building
     public Slider countdownBar;
     public TextMeshProUGUI prodQueueSizeText;
     public GameObject upgradePanel;
-    
+
     private float productionTime;
-    
+
     private GameObject weapon;
     private Queue<GameObject> toBeCreatedQueue = new Queue<GameObject>();
     private float productionTimeStart;
@@ -32,9 +32,9 @@ public class Factory : Building
             if (toBeCreatedQueue.Count > 0)
             {
                 state = ProductionState.PRODUCING;
+                prodQueueSizeText.text = toBeCreatedQueue.Count.ToString();
                 toBeCreated = toBeCreatedQueue.Dequeue();
                 productionTimeStart = Time.time;
-                prodQueueSizeText.text = toBeCreatedQueue.Count.ToString();
             }
         }
         else
@@ -42,7 +42,7 @@ public class Factory : Building
             productionTime = toBeCreated.GetComponent<Weapon>().productionTime;
             float elapsedTime = Time.time - productionTimeStart;
             UpdateProductionCtrBar(elapsedTime);
-            if ( productionTime <= elapsedTime)
+            if (productionTime <= elapsedTime)
             {
                 CreateWeapon(toBeCreated);
                 toBeCreated = null;
@@ -69,27 +69,22 @@ public class Factory : Building
             countdownBar.value = t / productionTime;
         }
     }
-    
+
     public void ShowHideUpgradeUI()
     {
-        if (upgradePanel.activeSelf)
-        {
-            upgradePanel.SetActive(false);
-            return;
-        }
-        upgradePanel.SetActive(true);
+        GameManager.instance.uiManager.FactorySelected(this);
     }
 
     public void UpgradeTank1()
     {
         ShowHideUpgradeUI();
     }
-    
+
     public void UpgradeTank2()
     {
         ShowHideUpgradeUI();
     }
-    
+
     public void UpgradeTank3()
     {
         ShowHideUpgradeUI();

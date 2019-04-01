@@ -8,6 +8,10 @@ public class WeaponManager : MonoBehaviour
 
     GameManager gameManager;
     public GameObject missileLauncherPrefab;
+    public WeaponUpgradableAttributes tank1UpgradableAttributes = new WeaponUpgradableAttributes();
+    public WeaponUpgradableAttributes tank2UpgradableAttributes = new WeaponUpgradableAttributes();
+    public WeaponUpgradableAttributes tank3UpgradableAttributes = new WeaponUpgradableAttributes();
+
     private float randomizeSpawn = 3f; //for spawnwave to spawn different places
 
     public GameObject soldierPrefab;
@@ -33,6 +37,9 @@ public class WeaponManager : MonoBehaviour
     {
         gameManager = GameManager.instance;
         spawnPoint = this.transform;
+        tank1UpgradableAttributes.refresh();
+        tank2UpgradableAttributes.refresh();
+        tank3UpgradableAttributes.refresh();
     }
 
     // Update is called once per frame
@@ -68,6 +75,7 @@ public class WeaponManager : MonoBehaviour
             (Vector2) Random.insideUnitCircle * 2 + new Vector2(spawnPoint.position.x, spawnPoint.position.y),
             Quaternion.identity);
         weapon.tag = "TeamRed";
+        weapon.layer = LayerMask.NameToLayer("TeamRedLayer");
     }
 
     public void SetWeaponToCreate(GameObject weapon)
@@ -88,15 +96,5 @@ public class WeaponManager : MonoBehaviour
         weapon = Instantiate(prefab, new Vector2(position.x, position.y),
             transform1.rotation);
         weapon.tag = "TeamBlue";
-    }
-
-    public void UpgradeWeapon(GameObject prefab)
-    {
-        var weaponPrefab = prefab.GetComponent<Weapon>();
-        weaponPrefab.health *= 1.1f;
-        weaponPrefab.range *= 1.1f;
-        weaponPrefab.speed *= 1.1f;
-        weaponPrefab.aimingSpeed *= 1.1f;
-        weaponPrefab.attackSpeed *= 1.1f;
     }
 }

@@ -1,6 +1,7 @@
+using Unity.Collections;
 using UnityEngine;
 
-public class Weapon : MonoBehaviour
+public abstract class Weapon : MonoBehaviour
 {
     public enum AimingState
     {
@@ -20,16 +21,51 @@ public class Weapon : MonoBehaviour
         STOPPED
     }
 
+
     public int price = 20;
-    public float health = 10f;
-    public float range = 5;
     public float minRange = 2;
-    public float speed = 1f;
-    public float maxSpeed = 1f;
-    public float attackSpeed = 5f;
+    [ReadOnly] public float currentHealth;
+    [ReadOnly] public float currentSpeed;
+    public WeaponUpgradableAttributes weaponUpgradableAttributes;
+
+    public float Speed
+    {
+        get => weaponUpgradableAttributes.speed.currentValue;
+        set => weaponUpgradableAttributes.speed.currentValue = value;
+    }
+
+    public float Health
+    {
+        get => weaponUpgradableAttributes.health.currentValue;
+        set => weaponUpgradableAttributes.health.currentValue = value;
+    }
+
+    public float Range
+    {
+        get => weaponUpgradableAttributes.range.currentValue;
+        set => weaponUpgradableAttributes.range.currentValue = value;
+    }
+
+    public float AttackSpeed
+    {
+        get => weaponUpgradableAttributes.attackSpeed.currentValue;
+        set => weaponUpgradableAttributes.attackSpeed.currentValue = value;
+    }
+
+    public float AimingSpeed
+    {
+        get => weaponUpgradableAttributes.aimingSpeed.currentValue;
+        set => weaponUpgradableAttributes.aimingSpeed.currentValue = value;
+    }
+
+    public float Damage
+    {
+        get => weaponUpgradableAttributes.damage.currentValue;
+        set => weaponUpgradableAttributes.damage.currentValue = value;
+    }
+
     public float minAttackAngle = 2f;
     public float aimingStopAngle = 1f;
-    public float aimingSpeed = 3f;
 
     public float productionTime;
 
@@ -38,6 +74,7 @@ public class Weapon : MonoBehaviour
     public AttackingState attackState = AttackingState.NOT_ATTACKING;
 
     public Bullet bulletPrefab;
+
 
     private Castle enemyCastle;
     private string enemyTag;
@@ -60,6 +97,9 @@ public class Weapon : MonoBehaviour
 
     private void Start()
     {
+        weaponUpgradableAttributes = GetUpgradableAttributes();
+        currentSpeed = weaponUpgradableAttributes.speed.currentValue;
+        currentHealth = weaponUpgradableAttributes.health.currentValue;
         //decide the team
         enemyTag = CompareTag("TeamBlue") ? "TeamRed" : "TeamBlue";
         gun = transform.Find("Base").Find("Gun");
@@ -72,6 +112,9 @@ public class Weapon : MonoBehaviour
 
 //        InvokeRepeating(nameof(SlowUpdate), 0.1f, 0.4f);
     }
+
+    public abstract WeaponUpgradableAttributes GetUpgradableAttributes();
+
 
     private void FixedUpdate()
     {
@@ -119,22 +162,22 @@ public class Weapon : MonoBehaviour
 
         lastDistance = Distance(closestTarget);
 
-        if (lastDistance > range)
+        if (lastDistance > Range)
         {
             movementState = MovementState.MOVING;
-            speed = maxSpeed;
+            currentSpeed = Speed;
             aimingState = AimingState.AIMING;
         }
 
-        if (range * .5f < lastDistance && range > lastDistance)
+        if (Range * .5f < lastDistance && Range > lastDistance)
         {
-            var f1 = Mathf.Abs(lastDistance - range) / range;
-            var f = speed = maxSpeed * (1f - f1);
+            var f1 = Mathf.Abs(lastDistance - Range) / Range;
+            var f = currentSpeed = Speed * (1f - f1);
             movementState = MovementState.MOVING;
             aimingState = AimingState.AIMING;
         }
 
-        if (range * .5f > lastDistance)
+        if (Range * .5f > lastDistance)
         {
             movementState = MovementState.STOPPED;
             aimingState = AimingState.AIMING;
@@ -144,7 +187,7 @@ public class Weapon : MonoBehaviour
 
         if (lastAngle > aimingStopAngle) aimingState = AimingState.AIMING;
 
-        if (minAttackAngle > lastAngle && range > lastDistance) attackState = AttackingState.ATTACKING;
+        if (minAttackAngle > lastAngle && Range > lastDistance) attackState = AttackingState.ATTACKING;
     }
 
     private void AimTarget()
@@ -154,8 +197,8 @@ public class Weapon : MonoBehaviour
         var vectorToTarget = target.transform.position - transform.position;
         var angle = Mathf.Atan2(vectorToTarget.y, vectorToTarget.x) * Mathf.Rad2Deg;
         var q = Quaternion.AngleAxis(angle - 90f, Vector3.forward);
-        gun.rotation = Quaternion.Slerp(gun.rotation, q, Time.deltaTime * aimingSpeed);
-        transform.rotation = Quaternion.Slerp(transform.rotation, q, Time.deltaTime * speed);
+        gun.rotation = Quaternion.Slerp(gun.rotation, q, Time.deltaTime * AimingSpeed);
+        transform.rotation = Quaternion.Slerp(transform.rotation, q, Time.deltaTime * currentSpeed);
     }
 
 
@@ -163,13 +206,13 @@ public class Weapon : MonoBehaviour
     {
         if (movementState != MovementState.MOVING) return;
         if (!target) return;
-        transform.Translate((Vector2) transform.up * speed * Time.deltaTime, Space.World);
+        transform.Translate((Vector2) transform.up * currentSpeed * Time.deltaTime, Space.World);
     }
 
     private void Fire()
     {
         if (attackState != AttackingState.ATTACKING) return;
-        if (!target || !(Time.time - lastFireTime > 1f / attackSpeed)) return;
+        if (!target || !(Time.time - lastFireTime > 1f / AttackSpeed)) return;
         lastFireTime = Time.time;
         var muzzlePosition = muzzle.position;
         var bulletDirection = (Vector2) (muzzlePosition - head.position).normalized;
@@ -177,12 +220,15 @@ public class Weapon : MonoBehaviour
             muzzle.rotation);
 //        var bullet1 = Instantiate(bulletPrefab, muzzle.position, transform.rotation);
         bullet1.direction = bulletDirection;
-        bullet1.targetTag = enemyTag;
+        bullet1.gameObject.layer = CompareTag("TeamBlue")
+            ? LayerMask.NameToLayer("TeamBlueLayer")
+            : LayerMask.NameToLayer("TeamRedLayer");
+        bullet1.targetTag = CompareTag("TeamBlue") ? "TeamRed" : "TeamBlue";
     }
 
     private bool IsInRange(GameObject enemy)
     {
-        return enemy && range > Distance(enemy);
+        return enemy && Range > Distance(enemy);
     }
 
     private bool IsTooClose(GameObject enemy)

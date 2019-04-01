@@ -698,16 +698,49 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57c2c5dcf57c0406bbc2a58c9fc9d987, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attributes:
+    speed:
+      name: Speed
+      baseValue: 0.5
+      value: 0
+      multiplier: 1.05
+      maxNumLevels: 5
+    health:
+      name: Health
+      baseValue: 50
+      value: 0
+      multiplier: 1.05
+      maxNumLevels: 5
+    range:
+      name: Range
+      baseValue: 10
+      value: 0
+      multiplier: 1.05
+      maxNumLevels: 5
+    attackSpeed:
+      name: Attack Speed
+      baseValue: 0.5
+      value: 0
+      multiplier: 1.05
+      maxNumLevels: 5
+    aimingSpeed:
+      name: Aiming Speed
+      baseValue: 1
+      value: 0
+      multiplier: 1.05
+      maxNumLevels: 5
+    damage:
+      name: Damage
+      baseValue: 20
+      value: 0
+      multiplier: 1.05
+      maxNumLevels: 5
   price: 20
-  health: 50
-  range: 10
   minRange: 2
-  speed: 0.5
-  maxSpeed: 2
-  attackSpeed: 0.5
+  currentHealth: 0
+  currentSpeed: 0
   minAttackAngle: 1
   aimingStopAngle: 1
-  aimingSpeed: 1
   productionTime: 3
   aimingState: 0
   movementState: 1
