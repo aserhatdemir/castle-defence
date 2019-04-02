@@ -1,5 +1,4 @@
-﻿using TMPro;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerStats : MonoBehaviour
 {
@@ -7,10 +6,10 @@ public class PlayerStats : MonoBehaviour
     public static int Rounds;
     public static float TotalTime;
     public static bool YouWon;
-    public TextMeshProUGUI moneyText;
-    public TextMeshProUGUI totalTimeText;
 
     public int startMoney = 100;
+
+    private GameManager gameManager;
 
 
 //    public int life = 10;
@@ -19,11 +18,14 @@ public class PlayerStats : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        gameManager = GameManager.instance;
+        
         Money = startMoney;
-        moneyText.text = "$" + Money.ToString();
         TotalTime = 0f;
         Rounds = 0;
         YouWon = false;
+        gameManager.uiManager.UpdateMoneyTextUI();
+        gameManager.uiManager.UpdateTotalTimeTextUI();
     }
 
     void Update()
@@ -31,11 +33,12 @@ public class PlayerStats : MonoBehaviour
         if (GameManager.GameIsOver) return;
         TotalTime += Time.deltaTime;
         TotalTime = Mathf.Clamp(TotalTime, 0f, Mathf.Infinity);
-        totalTimeText.text = string.Format("{0:00.0}", TotalTime);
+        gameManager.uiManager.UpdateTotalTimeTextUI();
     }
 
-    public void UpdateMoneyTextUI()
+    public void UpdateMoney(int m)
     {
-        moneyText.text = "$" + Money.ToString();
+        Money += m;
+        gameManager.uiManager.UpdateMoneyTextUI();
     }
 }

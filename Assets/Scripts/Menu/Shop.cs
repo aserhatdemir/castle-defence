@@ -19,16 +19,6 @@ public class Shop : MonoBehaviour
     private void SelectTank(GameObject prefab, Factory factory)
     {
         CreateWeapon(prefab, factory);
-//        if (selectedWeapon == prefab)
-//        {
-//            CreateWeapon(prefab, factory);
-//            hideUpgradeUI();
-//        }
-//        else
-//        {
-//            selectedWeapon = prefab;
-//            showUpgradeUI();
-//        }
     }
 
     private void CreateWeapon(GameObject prefab, Factory factory)
@@ -43,8 +33,7 @@ public class Shop : MonoBehaviour
         }
         else
         {
-            PlayerStats.Money -= weaponPrice;
-            gameManager.playerStatsScript.UpdateMoneyTextUI();
+            gameManager.playerStatsScript.UpdateMoney(weaponPrice * -1);
         }
     }
 

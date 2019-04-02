@@ -37,8 +37,7 @@ public class Bullet : MonoBehaviour
             Vector3 enemyPosition = enemy.transform.position;
             if (enemy.currentHealth <= 0 && gameManager)
             {
-                PlayerStats.Money += enemy.price / 2; //give money back
-                gameManager.playerStatsScript.UpdateMoneyTextUI();
+                gameManager.playerStatsScript.UpdateMoney(enemy.price / 2); //give some money back
                 Destroy(collision.gameObject);
                 GameObject dEffect = (GameObject) Instantiate(destroyEffectPrefab, enemyPosition,
                     destroyEffectPrefab.transform.rotation);

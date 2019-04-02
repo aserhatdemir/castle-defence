@@ -14,6 +14,7 @@ public class Factory : Building
     public Slider countdownBar;
     public TextMeshProUGUI prodQueueSizeText;
     public GameObject upgradePanel;
+    public Button shopButton;
 
     private float productionTime;
 
