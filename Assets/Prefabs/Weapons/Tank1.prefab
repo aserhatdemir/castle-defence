@@ -279,9 +279,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3627780967440116382}
+  - component: {fileID: 3216400227484401613}
   - component: {fileID: 4109500605571539666}
   - component: {fileID: 3357362016952799380}
-  - component: {fileID: 3216400227484401613}
   m_Layer: 8
   m_Name: Tank1
   m_TagString: Untagged
@@ -304,6 +304,79 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3216400227484401613
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8275832150250815254}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08cf9b6fb5d1a4afb9b42b8bbda9c654, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  price: 5
+  minRange: 0.3
+  currentHealth: 0
+  currentSpeed: 1
+  weaponUpgradableAttributes:
+    name: 
+    speed:
+      name: 
+      baseValue: 0
+      currentValue: 0
+      level: 0
+      multiplier: 1.05
+      maxNumLevels: 5
+    health:
+      name: 
+      baseValue: 0
+      currentValue: 0
+      level: 0
+      multiplier: 1.05
+      maxNumLevels: 5
+    range:
+      name: 
+      baseValue: 0
+      currentValue: 0
+      level: 0
+      multiplier: 1.05
+      maxNumLevels: 5
+    attackSpeed:
+      name: 
+      baseValue: 0
+      currentValue: 0
+      level: 0
+      multiplier: 1.05
+      maxNumLevels: 5
+    aimingSpeed:
+      name: 
+      baseValue: 0
+      currentValue: 0
+      level: 0
+      multiplier: 1.05
+      maxNumLevels: 5
+    damage:
+      name: 
+      baseValue: 0
+      currentValue: 0
+      level: 0
+      multiplier: 1.05
+      maxNumLevels: 5
+  minAttackAngle: 15
+  aimingStopAngle: 1
+  productionTime: 1
+  aimingState: 0
+  movementState: 1
+  attackState: 0
+  bulletPrefab: {fileID: 2625857677400097320, guid: ad7ef95407ea749a0836f5ff501c25b2,
+    type: 3}
+  lastAngle: 0
+  lastDistance: 0
+  target: {fileID: 9139065919804919002, guid: 8800f938fe9874dbc98c993504c8d008, type: 3}
+  slowUpdateTime: 0
+  updateSpeed: 1
 --- !u!61 &4109500605571539666
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -351,72 +424,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &3216400227484401613
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8275832150250815254}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 08cf9b6fb5d1a4afb9b42b8bbda9c654, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attributes:
-    speed:
-      name: Speed
-      baseValue: 2
-      value: 0
-      multiplier: 1.05
-      maxNumLevels: 5
-    health:
-      name: Health
-      baseValue: 10
-      value: 0
-      multiplier: 1.05
-      maxNumLevels: 5
-    range:
-      name: Ramge
-      baseValue: 5
-      value: 0
-      multiplier: 1.05
-      maxNumLevels: 5
-    attackSpeed:
-      name: Attack Speed
-      baseValue: 6
-      value: 0
-      multiplier: 1.05
-      maxNumLevels: 5
-    aimingSpeed:
-      name: Aiming Speed
-      baseValue: 3
-      value: 0
-      multiplier: 1.05
-      maxNumLevels: 5
-    damage:
-      name: Damage
-      baseValue: 1
-      value: 0
-      multiplier: 1.05
-      maxNumLevels: 5
-  price: 5
-  minRange: 0.3
-  currentHealth: 0
-  currentSpeed: 1
-  minAttackAngle: 15
-  aimingStopAngle: 1
-  productionTime: 1
-  aimingState: 0
-  movementState: 1
-  attackState: 0
-  bulletPrefab: {fileID: 2625857677400097320, guid: ad7ef95407ea749a0836f5ff501c25b2,
-    type: 3}
-  lastAngle: 0
-  lastDistance: 0
-  target: {fileID: 9139065919804919002, guid: 8800f938fe9874dbc98c993504c8d008, type: 3}
-  slowUpdateTime: 0
-  updateSpeed: 1
 --- !u!1 &8459988958353122568
 GameObject:
   m_ObjectHideFlags: 0

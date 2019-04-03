@@ -22,16 +22,21 @@ public class Building : MonoBehaviour
         health += damage;
         UpdateHealthBar(health);
         if (health <= 0)
-        {
+        {         
             Destroy(this.gameObject);
+
+            if (this.GetComponent<Factory>())
+            {
+                gameManager.uiManager.DisableShopButton(this.GetComponent<Factory>().shopButton);
+                this.GetComponent<Factory>().shopButton.GetComponent<ShopButton>().factoryDestroyed = true;
+            }
 
             if (this.GetComponent<Castle>())
             {
                 if (this.CompareTag("TeamRed")) //if red castle destroyed you won, else you lost.
-                                PlayerStats.YouWon = true;
+                    PlayerStats.YouWon = true;
                 gameManager.EndGame();
             }
-            
         }
     }
 

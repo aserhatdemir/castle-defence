@@ -1,23 +1,21 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
 
 public class TankUpgradePanel : MonoBehaviour
 {
     public Weapon weaponPrefab;
 
-    private UpgradeButtonBehaviour damageButton;
-    private UpgradeButtonBehaviour speedButton;
-    private UpgradeButtonBehaviour healthButton;
-    private UpgradeButtonBehaviour rangeButton;
-    private UpgradeButtonBehaviour attackSpeedButton;
+    public UpgradeButtonBehaviour damageButton;
+    public UpgradeButtonBehaviour speedButton;
+    public UpgradeButtonBehaviour healthButton;
+    public UpgradeButtonBehaviour rangeButton;
+    public UpgradeButtonBehaviour attackSpeedButton;
+    public UpgradeButtonBehaviour aimingSpeedButton;
+    
+    private GameManager gameManager;
 
-    private UpgradeButtonBehaviour aimingSpeedButton;
-
-    // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
+        gameManager = GameManager.instance;
         var upgradePanel = transform.Find("UpgradeButtons");
         damageButton = upgradePanel.Find("Damage").GetComponent<UpgradeButtonBehaviour>();
         speedButton = upgradePanel.Find("Speed").GetComponent<UpgradeButtonBehaviour>();
@@ -25,56 +23,70 @@ public class TankUpgradePanel : MonoBehaviour
         rangeButton = upgradePanel.Find("Range").GetComponent<UpgradeButtonBehaviour>();
         attackSpeedButton = upgradePanel.Find("AttackSpeed").GetComponent<UpgradeButtonBehaviour>();
         aimingSpeedButton = upgradePanel.Find("AimingSpeed").GetComponent<UpgradeButtonBehaviour>();
+        
     }
 
-    private void RefreshAllButtons()
+    public void RefreshAllButtons()
     {
-        damageButton.refreshUI(weaponPrefab.GetUpgradableAttributes().damage);
-        speedButton.refreshUI(weaponPrefab.GetUpgradableAttributes().speed);
-        healthButton.refreshUI(weaponPrefab.GetUpgradableAttributes().health);
-        rangeButton.refreshUI(weaponPrefab.GetUpgradableAttributes().range);
-        attackSpeedButton.refreshUI(weaponPrefab.GetUpgradableAttributes().attackSpeed);
-        aimingSpeedButton.refreshUI(weaponPrefab.GetUpgradableAttributes().aimingSpeed);
+        damageButton.RefreshUI(weaponPrefab.GetUpgradableAttributes().damage);
+        speedButton.RefreshUI(weaponPrefab.GetUpgradableAttributes().speed);
+        healthButton.RefreshUI(weaponPrefab.GetUpgradableAttributes().health);
+        rangeButton.RefreshUI(weaponPrefab.GetUpgradableAttributes().range);
+        attackSpeedButton.RefreshUI(weaponPrefab.GetUpgradableAttributes().attackSpeed);
+        aimingSpeedButton.RefreshUI(weaponPrefab.GetUpgradableAttributes().aimingSpeed);
     }
-
-    // Update is called once per frame
-    void Update()
+    
+    private bool HaveBudgetForUpgrade(WeaponUpgradableAttributes.WeaponAttribute upgrade)
     {
+        var upgradePrice = upgrade.upgradeCurrentPrice;
+        if (PlayerStats.Money < upgradePrice)
+        {
+            Debug.Log("Not enough money!");
+            return false;
+        }
+        gameManager.playerStatsScript.UpdateMoney(upgradePrice * -1);
+        return true;
     }
 
     public void UpgradeDamage()
     {
+        if (!HaveBudgetForUpgrade(weaponPrefab.GetUpgradableAttributes().damage)) return;
         weaponPrefab.GetUpgradableAttributes().damage.LevelUp();
-        damageButton.refreshUI(weaponPrefab.GetUpgradableAttributes().damage);
+        damageButton.RefreshUI(weaponPrefab.GetUpgradableAttributes().damage);
     }
 
     public void UpgradeSpeed()
     {
+        if (!HaveBudgetForUpgrade(weaponPrefab.GetUpgradableAttributes().speed)) return;
         weaponPrefab.GetUpgradableAttributes().speed.LevelUp();
-        speedButton.refreshUI(weaponPrefab.GetUpgradableAttributes().speed);
+        speedButton.RefreshUI(weaponPrefab.GetUpgradableAttributes().speed);
     }
 
     public void UpgradeHealth()
     {
+        if (!HaveBudgetForUpgrade(weaponPrefab.GetUpgradableAttributes().health)) return;
         weaponPrefab.GetUpgradableAttributes().health.LevelUp();
-        healthButton.refreshUI(weaponPrefab.GetUpgradableAttributes().health);
+        healthButton.RefreshUI(weaponPrefab.GetUpgradableAttributes().health);
     }
 
     public void UpgradeRange()
     {
+        if (!HaveBudgetForUpgrade(weaponPrefab.GetUpgradableAttributes().range)) return;
         weaponPrefab.GetUpgradableAttributes().range.LevelUp();
-        rangeButton.refreshUI(weaponPrefab.GetUpgradableAttributes().range);
+        rangeButton.RefreshUI(weaponPrefab.GetUpgradableAttributes().range);
     }
 
     public void UpgradeAttackSpeed()
     {
+        if (!HaveBudgetForUpgrade(weaponPrefab.GetUpgradableAttributes().attackSpeed)) return;
         weaponPrefab.GetUpgradableAttributes().attackSpeed.LevelUp();
-        attackSpeedButton.refreshUI(weaponPrefab.GetUpgradableAttributes().attackSpeed);
+        attackSpeedButton.RefreshUI(weaponPrefab.GetUpgradableAttributes().attackSpeed);
     }
 
     public void UpgradeAimingSpeed()
     {
+        if (!HaveBudgetForUpgrade(weaponPrefab.GetUpgradableAttributes().aimingSpeed)) return;
         weaponPrefab.GetUpgradableAttributes().aimingSpeed.LevelUp();
-        aimingSpeedButton.refreshUI(weaponPrefab.GetUpgradableAttributes().aimingSpeed);
+        aimingSpeedButton.RefreshUI(weaponPrefab.GetUpgradableAttributes().aimingSpeed);
     }
 }

@@ -1,7 +1,5 @@
 using System;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Analytics;
 
 [System.Serializable]
 public class WeaponUpgradableAttributes
@@ -15,6 +13,8 @@ public class WeaponUpgradableAttributes
         public float baseValue;
         public float currentValue = 0f;
         public int level;
+        public int upgradeBasePrice;
+        public int upgradeCurrentPrice;
 
 
         public float multiplier = 1.05f;
@@ -24,12 +24,14 @@ public class WeaponUpgradableAttributes
         {
             if (level >= maxNumLevels) return;
             level++;
+            
             refresh();
         }
 
         public void refresh()
         {
             this.currentValue = baseValue * Mathf.Pow(multiplier, level);
+            this.upgradeCurrentPrice = upgradeBasePrice * (level + 1);
         }
     }
 

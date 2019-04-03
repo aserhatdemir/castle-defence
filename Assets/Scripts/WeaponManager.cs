@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class WeaponManager : MonoBehaviour
-{
+{ 
     private float countDown = 2f;
 
     GameManager gameManager;
@@ -15,11 +15,12 @@ public class WeaponManager : MonoBehaviour
     private float randomizeSpawn = 3f; //for spawnwave to spawn different places
 
     public GameObject soldierPrefab;
-    private Transform spawnPoint;
     public GameObject tankPrefab;
     public GameObject tank1Prefab;
     public GameObject tank2Prefab;
     public GameObject tank3Prefab;
+//    public GameObject[] tankPrefabList;
+    private Transform spawnPoint;
 
     //-------wave spawn variables
     public float timeBetweenWaves = 5f;
@@ -37,6 +38,7 @@ public class WeaponManager : MonoBehaviour
     {
         gameManager = GameManager.instance;
         spawnPoint = this.transform;
+//        tankPrefabList = new[] {tank1Prefab, tank2Prefab, tank3Prefab};
         tank1UpgradableAttributes.refresh();
         tank2UpgradableAttributes.refresh();
         tank3UpgradableAttributes.refresh();
