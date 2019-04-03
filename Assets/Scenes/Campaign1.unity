@@ -1482,7 +1482,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -59.06, y: 0}
+  m_AnchoredPosition: {x: -59.06006, y: 0}
   m_SizeDelta: {x: 118.12, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &463156775
@@ -4719,6 +4719,62 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   missileLauncherPrefab: {fileID: 9139065919804919002, guid: fbab56c5111c74bc293b3d77f4b65a54,
     type: 3}
+  tankUpgradableAttributes:
+    name: 
+    speed:
+      name: Speed
+      baseValue: 1
+      currentValue: 0
+      level: 0
+      upgradeBasePrice: 0
+      upgradeCurrentPrice: 0
+      multiplier: 1.5
+      maxNumLevels: 5
+    health:
+      name: Health
+      baseValue: 5
+      currentValue: 0
+      level: 0
+      upgradeBasePrice: 0
+      upgradeCurrentPrice: 0
+      multiplier: 1.5
+      maxNumLevels: 5
+    range:
+      name: Range
+      baseValue: 3
+      currentValue: 0
+      level: 0
+      upgradeBasePrice: 0
+      upgradeCurrentPrice: 0
+      multiplier: 1.5
+      maxNumLevels: 5
+    attackSpeed:
+      name: Attack Speed
+      baseValue: 3
+      currentValue: 0
+      level: 0
+      upgradeBasePrice: 0
+      upgradeCurrentPrice: 0
+      multiplier: 1.5
+      maxNumLevels: 5
+    aimingSpeed:
+      name: Aiming Speed
+      baseValue: 3
+      currentValue: 0
+      level: 0
+      upgradeBasePrice: 0
+      upgradeCurrentPrice: 0
+      multiplier: 1.5
+      maxNumLevels: 5
+    damage:
+      name: Damage
+      baseValue: 1
+      currentValue: 0
+      level: 0
+      upgradeBasePrice: 0
+      upgradeCurrentPrice: 0
+      multiplier: 1.5
+      maxNumLevels: 5
   tank1UpgradableAttributes:
     name: 
     speed:
@@ -4741,7 +4797,7 @@ MonoBehaviour:
       maxNumLevels: 5
     range:
       name: Range
-      baseValue: 5
+      baseValue: 3
       currentValue: 0
       level: 0
       upgradeBasePrice: 5
@@ -4750,7 +4806,7 @@ MonoBehaviour:
       maxNumLevels: 5
     attackSpeed:
       name: Attack Speed
-      baseValue: 6
+      baseValue: 3
       currentValue: 0
       level: 0
       upgradeBasePrice: 5
@@ -4806,7 +4862,7 @@ MonoBehaviour:
       maxNumLevels: 5
     attackSpeed:
       name: Attack Speed
-      baseValue: 5
+      baseValue: 1.5
       currentValue: 0
       level: 0
       upgradeBasePrice: 10
@@ -4889,7 +4945,7 @@ MonoBehaviour:
       maxNumLevels: 5
   soldierPrefab: {fileID: 9139065919804919002, guid: 8c371c581317f43ac955408a8ddfe884,
     type: 3}
-  tankPrefab: {fileID: 8275832150250815254, guid: 1f7c6d44c8d30460e92fb52ba2aeaf33,
+  tankPrefab: {fileID: 9139065919804919002, guid: f7772728a694447b1914483d10777d12,
     type: 3}
   tank1Prefab: {fileID: 8275832150250815254, guid: 1f7c6d44c8d30460e92fb52ba2aeaf33,
     type: 3}
@@ -5846,6 +5902,11 @@ PrefabInstance:
       propertyPath: healthBar
       value: 
       objectReference: {fileID: 1752296516}
+    - target: {fileID: 93360596634036119, guid: b64d1509d2fee44b5839825f2448e854,
+        type: 3}
+      propertyPath: health
+      value: 500
+      objectReference: {fileID: 0}
     - target: {fileID: 8848718368092578519, guid: b64d1509d2fee44b5839825f2448e854,
         type: 3}
       propertyPath: m_AnchoredPosition.x

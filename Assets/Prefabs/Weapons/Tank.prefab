@@ -70,9 +70,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9139065919804918996}
+  - component: {fileID: 3052906026768684547}
   - component: {fileID: 5720316134369627840}
   - component: {fileID: 3354783646044925383}
-  - component: {fileID: 3052906026768684547}
   m_Layer: 9
   m_Name: Tank
   m_TagString: Untagged
@@ -95,6 +95,92 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3052906026768684547
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9139065919804919002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7ef7635fdf8b4bf1967134961bb6084, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  price: 10
+  minRange: 0
+  currentHealth: 0
+  currentSpeed: 0
+  currentDamage: 0
+  weaponUpgradableAttributes:
+    name: 
+    speed:
+      name: 
+      baseValue: 0
+      currentValue: 0
+      level: 0
+      upgradeBasePrice: 0
+      upgradeCurrentPrice: 0
+      multiplier: 1.05
+      maxNumLevels: 5
+    health:
+      name: 
+      baseValue: 0
+      currentValue: 0
+      level: 0
+      upgradeBasePrice: 0
+      upgradeCurrentPrice: 0
+      multiplier: 1.05
+      maxNumLevels: 5
+    range:
+      name: 
+      baseValue: 0
+      currentValue: 0
+      level: 0
+      upgradeBasePrice: 0
+      upgradeCurrentPrice: 0
+      multiplier: 1.05
+      maxNumLevels: 5
+    attackSpeed:
+      name: 
+      baseValue: 0
+      currentValue: 0
+      level: 0
+      upgradeBasePrice: 0
+      upgradeCurrentPrice: 0
+      multiplier: 1.05
+      maxNumLevels: 5
+    aimingSpeed:
+      name: 
+      baseValue: 0
+      currentValue: 0
+      level: 0
+      upgradeBasePrice: 0
+      upgradeCurrentPrice: 0
+      multiplier: 1.05
+      maxNumLevels: 5
+    damage:
+      name: 
+      baseValue: 0
+      currentValue: 0
+      level: 0
+      upgradeBasePrice: 0
+      upgradeCurrentPrice: 0
+      multiplier: 1.05
+      maxNumLevels: 5
+  minAttackAngle: 2
+  aimingStopAngle: 1
+  productionTime: 0
+  aimingState: 0
+  movementState: 1
+  attackState: 0
+  bulletPrefab: {fileID: 2625857677400097320, guid: ad7ef95407ea749a0836f5ff501c25b2,
+    type: 3}
+  lastAngle: 0
+  lastDistance: 0
+  target: {fileID: 9139065919804919002}
+  slowUpdateTime: 0
+  updateSpeed: 1
 --- !u!61 &5720316134369627840
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -142,39 +228,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &3052906026768684547
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9139065919804919002}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f7ef7635fdf8b4bf1967134961bb6084, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  price: 10
-  health: 25
-  range: 3
-  minRange: 0
-  speed: 2
-  maxSpeed: 3
-  attackSpeed: 0.5
-  minAttackAngle: 2
-  aimingStopAngle: 1
-  aimingSpeed: 3
-  creationTime: 1
-  aimingState: 0
-  movementState: 1
-  attackState: 0
-  bulletPrefab: {fileID: 2625857677400097320, guid: 8ed3b58a618da4cf9b06833c4b297ead,
-    type: 3}
-  lastAngle: 0
-  lastDistance: 0
-  target: {fileID: 9139065919804919002}
-  slowUpdateTime: 0
-  updateSpeed: 1
 --- !u!1 &9139065921070639380
 GameObject:
   m_ObjectHideFlags: 0

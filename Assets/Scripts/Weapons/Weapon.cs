@@ -26,6 +26,7 @@ public abstract class Weapon : MonoBehaviour
     public float minRange = 2;
     [ReadOnly] public float currentHealth;
     [ReadOnly] public float currentSpeed;
+    [ReadOnly] public float currentDamage;
     public WeaponUpgradableAttributes weaponUpgradableAttributes;
 
     public float Speed
@@ -100,6 +101,7 @@ public abstract class Weapon : MonoBehaviour
         weaponUpgradableAttributes = GetUpgradableAttributes();
         currentSpeed = weaponUpgradableAttributes.speed.currentValue;
         currentHealth = weaponUpgradableAttributes.health.currentValue;
+        currentDamage = weaponUpgradableAttributes.damage.currentValue;
         //decide the team
         enemyTag = CompareTag("TeamBlue") ? "TeamRed" : "TeamBlue";
         gun = transform.Find("Base").Find("Gun");
@@ -220,6 +222,7 @@ public abstract class Weapon : MonoBehaviour
             muzzle.rotation);
 //        var bullet1 = Instantiate(bulletPrefab, muzzle.position, transform.rotation);
         bullet1.direction = bulletDirection;
+        bullet1.damage = this.currentDamage;
         bullet1.gameObject.layer = CompareTag("TeamBlue")
             ? LayerMask.NameToLayer("TeamBlueLayer")
             : LayerMask.NameToLayer("TeamRedLayer");

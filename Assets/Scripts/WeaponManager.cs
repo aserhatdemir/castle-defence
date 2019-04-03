@@ -8,6 +8,7 @@ public class WeaponManager : MonoBehaviour
 
     GameManager gameManager;
     public GameObject missileLauncherPrefab;
+    public WeaponUpgradableAttributes tankUpgradableAttributes = new WeaponUpgradableAttributes();
     public WeaponUpgradableAttributes tank1UpgradableAttributes = new WeaponUpgradableAttributes();
     public WeaponUpgradableAttributes tank2UpgradableAttributes = new WeaponUpgradableAttributes();
     public WeaponUpgradableAttributes tank3UpgradableAttributes = new WeaponUpgradableAttributes();
@@ -39,6 +40,7 @@ public class WeaponManager : MonoBehaviour
         gameManager = GameManager.instance;
         spawnPoint = this.transform;
 //        tankPrefabList = new[] {tank1Prefab, tank2Prefab, tank3Prefab};
+        tankUpgradableAttributes.refresh();
         tank1UpgradableAttributes.refresh();
         tank2UpgradableAttributes.refresh();
         tank3UpgradableAttributes.refresh();

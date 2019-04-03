@@ -1,4 +1,5 @@
-﻿using TMPro;
+﻿using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -20,6 +21,7 @@ public class UIManager : MonoBehaviour
     {
         gameManager = GameManager.instance;
         shopButtons = shopPanel.GetComponentsInChildren<Button>();
+        activeUpgradePanel = null;
     }
 
     public void FactorySelected(Factory factory)
@@ -27,13 +29,8 @@ public class UIManager : MonoBehaviour
         if (factory.upgradePanel.activeSelf)
         {
             factory.upgradePanel.SetActive(false);
-            
-            if (shopButtons == null) return;    //Enable all shop buttons
-            foreach (Button shopButton in shopButtons)
-            {
-                shopButton.interactable = true;
-            }
-            
+
+            EnableAllShopButtons(shopButtons);
             return;
         }
         CloseAllActiveUpgradePanels();
@@ -46,11 +43,23 @@ public class UIManager : MonoBehaviour
         upgradePanel.GetComponent<TankUpgradePanel>().RefreshAllButtons();
         activeUpgradePanel = upgradePanel.GetComponent<TankUpgradePanel>();
         CheckUpgradeButtonsBudget(activeUpgradePanel);
-        
-        if (shopButtons == null) return;    //Disable all shop buttons
-        foreach (Button shopButton in shopButtons)
+        DisableAllShopButtons(shopButtons);
+    }
+
+    private void DisableAllShopButtons(Button[] buttons)
+    {
+        if (buttons == null) return;    
+        foreach (var button in buttons)
         {
-            shopButton.interactable = false;
+            button.interactable = false;
+        }
+    }
+    private void EnableAllShopButtons(Button[] buttons)
+    {
+        if (buttons == null) return;    
+        foreach (var button in buttons)
+        {
+            button.interactable = true;
         }
     }
 
@@ -64,6 +73,8 @@ public class UIManager : MonoBehaviour
                 tankUpgradePanel.gameObject.SetActive(false);
             }
         }
+
+        activeUpgradePanel = null;
     }
 
     public void UpdateMoneyTextUI()
@@ -76,12 +87,10 @@ public class UIManager : MonoBehaviour
     private void CheckUpgradeButtonsBudget(TankUpgradePanel upgradePanel)
     {
         if (!upgradePanel) return;
-        CheckUpgradeButtonBudget(upgradePanel.damageButton, upgradePanel.weaponPrefab.GetUpgradableAttributes().damage);
-        CheckUpgradeButtonBudget(upgradePanel.speedButton, upgradePanel.weaponPrefab.GetUpgradableAttributes().speed);
-        CheckUpgradeButtonBudget(upgradePanel.healthButton, upgradePanel.weaponPrefab.GetUpgradableAttributes().health);
-        CheckUpgradeButtonBudget(upgradePanel.rangeButton, upgradePanel.weaponPrefab.GetUpgradableAttributes().range);
-        CheckUpgradeButtonBudget(upgradePanel.attackSpeedButton, upgradePanel.weaponPrefab.GetUpgradableAttributes().attackSpeed);
-        CheckUpgradeButtonBudget(upgradePanel.aimingSpeedButton, upgradePanel.weaponPrefab.GetUpgradableAttributes().aimingSpeed);
+        foreach (KeyValuePair<UpgradeButtonBehaviour, WeaponUpgradableAttributes.WeaponAttribute> buttonAttributePair in upgradePanel.buttonsWithWeaponAttributes)
+        {
+            CheckUpgradeButtonBudget(buttonAttributePair.Key, buttonAttributePair.Value);
+        }
     }
 
     void CheckUpgradeButtonBudget(UpgradeButtonBehaviour button, WeaponUpgradableAttributes.WeaponAttribute upgrade)
@@ -107,7 +116,7 @@ public class UIManager : MonoBehaviour
             }
             else
             {
-                if (!shopButton.interactable && !shopButton.GetComponent<ShopButton>().factoryDestroyed)
+                if (!activeUpgradePanel && !shopButton.GetComponent<ShopButton>().factoryDestroyed)
                 {
                     shopButton.interactable = true;
                 }

@@ -3,6 +3,6 @@
     // Start is called before the first frame update
     public override WeaponUpgradableAttributes GetUpgradableAttributes()
     {
-        throw new System.NotImplementedException();
+        return GameManager.instance.weaponManagerScript.tankUpgradableAttributes;
     }
 }

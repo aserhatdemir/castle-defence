@@ -37,6 +37,10 @@ public class Factory : Building
                 toBeCreated = toBeCreatedQueue.Dequeue();
                 productionTimeStart = Time.time;
             }
+            else
+            {
+                prodQueueSizeText.text = "0";
+            }
         }
         else
         {

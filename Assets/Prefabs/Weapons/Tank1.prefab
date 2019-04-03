@@ -327,6 +327,8 @@ MonoBehaviour:
       baseValue: 0
       currentValue: 0
       level: 0
+      upgradeBasePrice: 0
+      upgradeCurrentPrice: 0
       multiplier: 1.05
       maxNumLevels: 5
     health:
@@ -334,6 +336,8 @@ MonoBehaviour:
       baseValue: 0
       currentValue: 0
       level: 0
+      upgradeBasePrice: 0
+      upgradeCurrentPrice: 0
       multiplier: 1.05
       maxNumLevels: 5
     range:
@@ -341,6 +345,8 @@ MonoBehaviour:
       baseValue: 0
       currentValue: 0
       level: 0
+      upgradeBasePrice: 0
+      upgradeCurrentPrice: 0
       multiplier: 1.05
       maxNumLevels: 5
     attackSpeed:
@@ -348,6 +354,8 @@ MonoBehaviour:
       baseValue: 0
       currentValue: 0
       level: 0
+      upgradeBasePrice: 0
+      upgradeCurrentPrice: 0
       multiplier: 1.05
       maxNumLevels: 5
     aimingSpeed:
@@ -355,6 +363,8 @@ MonoBehaviour:
       baseValue: 0
       currentValue: 0
       level: 0
+      upgradeBasePrice: 0
+      upgradeCurrentPrice: 0
       multiplier: 1.05
       maxNumLevels: 5
     damage:
@@ -362,6 +372,8 @@ MonoBehaviour:
       baseValue: 0
       currentValue: 0
       level: 0
+      upgradeBasePrice: 0
+      upgradeCurrentPrice: 0
       multiplier: 1.05
       maxNumLevels: 5
   minAttackAngle: 15
@@ -370,7 +382,7 @@ MonoBehaviour:
   aimingState: 0
   movementState: 1
   attackState: 0
-  bulletPrefab: {fileID: 2625857677400097320, guid: ad7ef95407ea749a0836f5ff501c25b2,
+  bulletPrefab: {fileID: 2625857677400097320, guid: 36908cb6679da484bbd2734c8356c088,
     type: 3}
   lastAngle: 0
   lastDistance: 0

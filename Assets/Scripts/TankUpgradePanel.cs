@@ -1,15 +1,17 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class TankUpgradePanel : MonoBehaviour
 {
     public Weapon weaponPrefab;
+    public Dictionary<UpgradeButtonBehaviour, WeaponUpgradableAttributes.WeaponAttribute> buttonsWithWeaponAttributes;
 
-    public UpgradeButtonBehaviour damageButton;
-    public UpgradeButtonBehaviour speedButton;
-    public UpgradeButtonBehaviour healthButton;
-    public UpgradeButtonBehaviour rangeButton;
-    public UpgradeButtonBehaviour attackSpeedButton;
-    public UpgradeButtonBehaviour aimingSpeedButton;
+    private UpgradeButtonBehaviour damageButton;
+    private UpgradeButtonBehaviour speedButton;
+    private UpgradeButtonBehaviour healthButton;
+    private UpgradeButtonBehaviour rangeButton;
+    private UpgradeButtonBehaviour attackSpeedButton;
+    private UpgradeButtonBehaviour aimingSpeedButton;
     
     private GameManager gameManager;
 
@@ -17,6 +19,7 @@ public class TankUpgradePanel : MonoBehaviour
     {
         gameManager = GameManager.instance;
         var upgradePanel = transform.Find("UpgradeButtons");
+        
         damageButton = upgradePanel.Find("Damage").GetComponent<UpgradeButtonBehaviour>();
         speedButton = upgradePanel.Find("Speed").GetComponent<UpgradeButtonBehaviour>();
         healthButton = upgradePanel.Find("Health").GetComponent<UpgradeButtonBehaviour>();
@@ -24,16 +27,25 @@ public class TankUpgradePanel : MonoBehaviour
         attackSpeedButton = upgradePanel.Find("AttackSpeed").GetComponent<UpgradeButtonBehaviour>();
         aimingSpeedButton = upgradePanel.Find("AimingSpeed").GetComponent<UpgradeButtonBehaviour>();
         
+        //keep upgrade button and related weapon upgrade attribute together
+        buttonsWithWeaponAttributes = new Dictionary<UpgradeButtonBehaviour, WeaponUpgradableAttributes.WeaponAttribute>()
+        {
+            {damageButton, weaponPrefab.GetUpgradableAttributes().damage},
+            {speedButton, weaponPrefab.GetUpgradableAttributes().speed},
+            {healthButton, weaponPrefab.GetUpgradableAttributes().health},
+            {rangeButton, weaponPrefab.GetUpgradableAttributes().range},
+            {attackSpeedButton, weaponPrefab.GetUpgradableAttributes().attackSpeed},
+            {aimingSpeedButton, weaponPrefab.GetUpgradableAttributes().aimingSpeed}
+        };
+        
     }
 
     public void RefreshAllButtons()
     {
-        damageButton.RefreshUI(weaponPrefab.GetUpgradableAttributes().damage);
-        speedButton.RefreshUI(weaponPrefab.GetUpgradableAttributes().speed);
-        healthButton.RefreshUI(weaponPrefab.GetUpgradableAttributes().health);
-        rangeButton.RefreshUI(weaponPrefab.GetUpgradableAttributes().range);
-        attackSpeedButton.RefreshUI(weaponPrefab.GetUpgradableAttributes().attackSpeed);
-        aimingSpeedButton.RefreshUI(weaponPrefab.GetUpgradableAttributes().aimingSpeed);
+        foreach (KeyValuePair<UpgradeButtonBehaviour, WeaponUpgradableAttributes.WeaponAttribute> buttonAttributePair in buttonsWithWeaponAttributes)
+        {
+            buttonAttributePair.Key.RefreshUI(buttonAttributePair.Value);
+        }
     }
     
     private bool HaveBudgetForUpgrade(WeaponUpgradableAttributes.WeaponAttribute upgrade)

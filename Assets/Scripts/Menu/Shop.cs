@@ -23,8 +23,6 @@ public class Shop : MonoBehaviour
 
     private void CreateWeapon(GameObject prefab, Factory factory)
     {
-        factory.AddToQueue(prefab);
-        
         var weaponPrice = prefab.GetComponent<Weapon>().price;
         if (PlayerStats.Money < weaponPrice)
         {
@@ -35,6 +33,7 @@ public class Shop : MonoBehaviour
         {
             gameManager.playerStatsScript.UpdateMoney(weaponPrice * -1);
         }
+        factory.AddToQueue(prefab);
     }
 
     public void SelectTank1()
