@@ -176,11 +176,14 @@ MonoBehaviour:
   attackState: 0
   bulletPrefab: {fileID: 2625857677400097320, guid: ad7ef95407ea749a0836f5ff501c25b2,
     type: 3}
+  enemyTag: 
   lastAngle: 0
   lastDistance: 0
   target: {fileID: 9139065919804919002}
   slowUpdateTime: 0
   updateSpeed: 1
+  destroyEffectPrefab: {fileID: 1337198075554910, guid: 25c7aa9ad705fe143a4d71c1c8deb7d4,
+    type: 3}
 --- !u!61 &5720316134369627840
 BoxCollider2D:
   m_ObjectHideFlags: 0

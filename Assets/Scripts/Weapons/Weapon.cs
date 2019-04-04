@@ -96,8 +96,13 @@ public abstract class Weapon : MonoBehaviour
     public float slowUpdateTime;
     public float updateSpeed = 1f;
 
+    private GameManager gameManager;
+    public GameObject destroyEffectPrefab;
+
     public void Start()
     {
+        gameManager = GameManager.instance;
+        
         weaponUpgradableAttributes = GetUpgradableAttributes();
         currentSpeed = weaponUpgradableAttributes.speed.currentValue;
         currentHealth = weaponUpgradableAttributes.health.currentValue;
@@ -257,5 +262,19 @@ public abstract class Weapon : MonoBehaviour
         var position = head.position;
         var angle = Vector2.Angle(muzzle.position - position, go.transform.position - position);
         return angle;
+    }
+
+    public void UpdateHealth(float damage)
+    {
+        currentHealth += damage;
+        if (currentHealth <= 0)
+        {
+            gameManager.playerStatsScript.UpdateMoney(price / 2); //give some money back
+            Destroy(this.gameObject);
+            GameObject dEffect = (GameObject) Instantiate(destroyEffectPrefab, transform.position,
+                destroyEffectPrefab.transform.rotation);
+            Destroy(dEffect, 1f);
+        }
+
     }
 }

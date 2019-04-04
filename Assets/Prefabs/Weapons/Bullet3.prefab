@@ -96,11 +96,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 1
-  destroyEffectPrefab: {fileID: 7890960156137460366, guid: 547a61d253d1942bea932aa99ec20f2c,
-    type: 3}
   direction: {x: 0, y: 0, z: 0}
   speed: 10
   targetTag: 
+  hitEffectPrefab: {fileID: 1025285306637258, guid: d8f0099df63275647a8bcf646df1ca00,
+    type: 3}
 --- !u!96 &4394156243942930577
 TrailRenderer:
   serializedVersion: 2
@@ -136,10 +136,10 @@ TrailRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 619774637
+  m_SortingLayer: 4
   m_SortingOrder: 0
-  m_Time: 0.1
+  m_Time: 0.06
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 1
@@ -148,7 +148,7 @@ TrailRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.03457451
+        value: 0.014173508
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -156,8 +156,17 @@ TrailRenderer:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 1
-        value: 0
+        time: 0.493909
+        value: 0.03510329
+        inSlope: 0.255032
+        outSlope: 0.255032
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.27695382
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.9880371
+        value: 0.06803894
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -169,33 +178,33 @@ TrailRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 1, b: 1, a: 1}
-      key1: {r: 1, g: 1, b: 1, a: 1}
-      key2: {r: 0, g: 0, b: 0, a: 0}
+      key0: {r: 0.99215686, g: 0.898706, b: 0.058823552, a: 1}
+      key1: {r: 1, g: 0.8365737, b: 0, a: 1}
+      key2: {r: 0.8679245, g: 0.14836307, b: 0.05322181, a: 0.40392157}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
       key5: {r: 0, g: 0, b: 0, a: 0}
       key6: {r: 0, g: 0, b: 0, a: 0}
       key7: {r: 0, g: 0, b: 0, a: 0}
       ctime0: 0
-      ctime1: 65535
-      ctime2: 0
-      ctime3: 0
+      ctime1: 15227
+      ctime2: 29876
+      ctime3: 58403
       ctime4: 0
       ctime5: 0
       ctime6: 0
       ctime7: 0
       atime0: 0
-      atime1: 65535
-      atime2: 0
+      atime1: 47031
+      atime2: 65535
       atime3: 0
       atime4: 0
       atime5: 0
       atime6: 0
       atime7: 0
       m_Mode: 0
-      m_NumColorKeys: 2
-      m_NumAlphaKeys: 2
+      m_NumColorKeys: 4
+      m_NumAlphaKeys: 3
     numCornerVertices: 0
     numCapVertices: 0
     alignment: 0
@@ -203,7 +212,7 @@ TrailRenderer:
     shadowBias: 0.5
     generateLightingData: 0
   m_MinVertexDistance: 0.1
-  m_Autodestruct: 0
+  m_Autodestruct: 1
   m_Emitting: 1
 --- !u!70 &988679496161975013
 CapsuleCollider2D:

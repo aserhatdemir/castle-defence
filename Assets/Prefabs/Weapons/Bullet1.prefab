@@ -96,11 +96,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 1
-  destroyEffectPrefab: {fileID: 7890960156137460366, guid: 547a61d253d1942bea932aa99ec20f2c,
-    type: 3}
   direction: {x: 0, y: 0, z: 0}
   speed: 10
   targetTag: 
+  hitEffectPrefab: {fileID: 1025285306637258, guid: d8f0099df63275647a8bcf646df1ca00,
+    type: 3}
 --- !u!96 &4394156243942930577
 TrailRenderer:
   serializedVersion: 2
@@ -139,7 +139,7 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Time: 0.1
+  m_Time: 0.5
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 1
@@ -147,14 +147,14 @@ TrailRenderer:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 0
-        value: 0.03457451
-        inSlope: 0
-        outSlope: 0
+        time: 0.0029945374
+        value: 0.08219719
+        inSlope: 0.34339806
+        outSlope: 0.34339806
         tangentMode: 0
         weightedMode: 0
         inWeight: 0.33333334
-        outWeight: 0.33333334
+        outWeight: 0.17717674
       - serializedVersion: 3
         time: 1
         value: 0
@@ -203,7 +203,7 @@ TrailRenderer:
     shadowBias: 0.5
     generateLightingData: 0
   m_MinVertexDistance: 0.1
-  m_Autodestruct: 0
+  m_Autodestruct: 1
   m_Emitting: 1
 --- !u!70 &988679496161975013
 CapsuleCollider2D:
