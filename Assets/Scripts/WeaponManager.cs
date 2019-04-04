@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class WeaponManager : MonoBehaviour
-{ 
+{
     private float countDown = 2f;
 
     GameManager gameManager;
@@ -19,12 +19,14 @@ public class WeaponManager : MonoBehaviour
     public GameObject tankPrefab;
     public GameObject tank1Prefab;
     public GameObject tank2Prefab;
+
     public GameObject tank3Prefab;
+
 //    public GameObject[] tankPrefabList;
     private Transform spawnPoint;
 
     //-------wave spawn variables
-    public float timeBetweenWaves = 5f;
+    public float timeBetweenWaves = 10f;
     public Text waveCountdownText;
     private int waveIndex = 0;
     private float waveSeparator = 0.5f; //sepearete instantiations in wave
@@ -66,7 +68,7 @@ public class WeaponManager : MonoBehaviour
         waveIndex++;
         PlayerStats.Rounds++;
         randomizeSpawn = Random.Range(-3f, 3f);
-        for (int i = 0; i < waveIndex; i++)
+        for (int i = 0; i < (waveIndex / 3) + 5; i++)
         {
             SpawnTeamRedWeapon();
             yield return new WaitForSeconds(waveSeparator);

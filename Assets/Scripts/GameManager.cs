@@ -6,6 +6,8 @@ public class GameManager : MonoBehaviour
 
     public static bool GameIsOver;
     public GameObject gameOverUI;
+    public GameObject pauseMenuUI;
+    
     public PlayerStats playerStatsScript; 
     public WeaponManager weaponManagerScript;
     public UIManager uiManager;
@@ -33,5 +35,10 @@ public class GameManager : MonoBehaviour
     {
         GameIsOver = true;
         gameOverUI.SetActive(true);
+    }
+
+    public void PauseGame()
+    {
+        
     }
 }

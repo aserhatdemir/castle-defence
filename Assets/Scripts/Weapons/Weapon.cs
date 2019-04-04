@@ -78,7 +78,7 @@ public abstract class Weapon : MonoBehaviour
 
 
     private Castle enemyCastle;
-    private string enemyTag;
+    public string enemyTag;
 
     private Transform gun;
     private Transform head;
@@ -96,7 +96,7 @@ public abstract class Weapon : MonoBehaviour
     public float slowUpdateTime;
     public float updateSpeed = 1f;
 
-    private void Start()
+    public void Start()
     {
         weaponUpgradableAttributes = GetUpgradableAttributes();
         currentSpeed = weaponUpgradableAttributes.speed.currentValue;
@@ -104,6 +104,13 @@ public abstract class Weapon : MonoBehaviour
         currentDamage = weaponUpgradableAttributes.damage.currentValue;
         //decide the team
         enemyTag = CompareTag("TeamBlue") ? "TeamRed" : "TeamBlue";
+        Prepare();
+
+//        InvokeRepeating(nameof(SlowUpdate), 0.1f, 0.4f);
+    }
+
+    private void Prepare()
+    {
         gun = transform.Find("Base").Find("Gun");
 
         head = gun.Find("Head");
@@ -112,7 +119,6 @@ public abstract class Weapon : MonoBehaviour
         muzzle2 = head.Find("Muzzle-2");
         slowUpdateTime = lastFireTime = Time.time;
 
-//        InvokeRepeating(nameof(SlowUpdate), 0.1f, 0.4f);
     }
 
     public abstract WeaponUpgradableAttributes GetUpgradableAttributes();
