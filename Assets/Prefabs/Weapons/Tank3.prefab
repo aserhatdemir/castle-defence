@@ -990,7 +990,7 @@ MonoBehaviour:
   aimingState: 0
   movementState: 1
   attackState: 0
-  bulletPrefab: {fileID: 2625857677400097320, guid: dd07b2b8f0961469a9f599f29a39e19d,
+  bulletPrefab: {fileID: 1703287869486859184, guid: dd07b2b8f0961469a9f599f29a39e19d,
     type: 3}
   enemyTag: 
   lastAngle: 0

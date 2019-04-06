@@ -7,14 +7,17 @@ public class Projectile : MonoBehaviour
     public float speed = 10f;
     public string targetTag;
     public GameObject hitEffectPrefab;
-
+    public GameObject target;
+        
     private float ttl = 3f;
     private GameManager gameManager;
+    private bool hasCollided;
 
     void Start()
     {
         Destroy(gameObject, ttl);
         gameManager = GameManager.instance;
+        hasCollided = false;
     }
 
     void Update()
@@ -26,6 +29,9 @@ public class Projectile : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (!collision.gameObject.CompareTag(targetTag)) return;
+        //bullet effects only one weapon
+        if (hasCollided) return;
+        hasCollided = true;
         Destroy(this.gameObject);
         GameObject hEffect = (GameObject) Instantiate(hitEffectPrefab, transform.position,
             hitEffectPrefab.transform.rotation);

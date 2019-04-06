@@ -74,7 +74,7 @@ public abstract class Weapon : MonoBehaviour
     public MovementState movementState = MovementState.STOPPED;
     public AttackingState attackState = AttackingState.NOT_ATTACKING;
 
-    public Bullet bulletPrefab;
+    public Projectile bulletPrefab;
 
 
     private Castle enemyCastle;
@@ -223,21 +223,34 @@ public abstract class Weapon : MonoBehaviour
     }
 
     private void Fire()
-    {
+    {   
         if (attackState != AttackingState.ATTACKING) return;
         if (!target || !(Time.time - lastFireTime > 1f / AttackSpeed)) return;
         lastFireTime = Time.time;
-        var muzzlePosition = muzzle.position;
-        var bulletDirection = (Vector2) (muzzlePosition - head.position).normalized;
-        var bullet1 = Instantiate(bulletPrefab, muzzlePosition,
-            muzzle.rotation);
-//        var bullet1 = Instantiate(bulletPrefab, muzzle.position, transform.rotation);
-        bullet1.direction = bulletDirection;
-        bullet1.damage = this.currentDamage;
-        bullet1.gameObject.layer = CompareTag("TeamBlue")
+        
+        if (muzzle1 && muzzle2)
+        {
+            FireBullet(muzzle1);
+            FireBullet(muzzle2);
+        }
+        else
+        {
+            FireBullet(muzzle);
+        }
+    }
+
+    private void FireBullet(Transform muz)
+    {
+        var muzzlePosition = muz.position;
+        var bullet = Instantiate(bulletPrefab, muzzlePosition, head.rotation);
+        var bulletDirection = (Vector2) (muzzle.position - head.position).normalized;
+        bullet.direction = bulletDirection;
+        bullet.damage = this.currentDamage;
+        bullet.target = target;
+        bullet.gameObject.layer = CompareTag("TeamBlue")
             ? LayerMask.NameToLayer("TeamBlueLayer")
             : LayerMask.NameToLayer("TeamRedLayer");
-        bullet1.targetTag = CompareTag("TeamBlue") ? "TeamRed" : "TeamBlue";
+        bullet.targetTag = CompareTag("TeamBlue") ? "TeamRed" : "TeamBlue";
     }
 
     private bool IsInRange(GameObject enemy)

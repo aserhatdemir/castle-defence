@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8606429405142733504}
   - component: {fileID: 3802997480512618422}
-  - component: {fileID: 2625857677400097320}
+  - component: {fileID: 1703287869486859184}
   - component: {fileID: 4394156243942930577}
   - component: {fileID: 988679496161975013}
   - component: {fileID: 2917462481923580034}
@@ -83,7 +83,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &2625857677400097320
+--- !u!114 &1703287869486859184
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -92,15 +92,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 6567133036572008007}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d586d8848810e4b0d8ca2f59f40748bd, type: 3}
+  m_Script: {fileID: 11500000, guid: 93d485c5ddea4149b2f3a10c07114d6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 1
+  damage: 10
   direction: {x: 0, y: 0, z: 0}
   speed: 10
   targetTag: 
   hitEffectPrefab: {fileID: 1025285306637258, guid: d8f0099df63275647a8bcf646df1ca00,
     type: 3}
+  target: {fileID: 0}
+  rigidBody: {fileID: 2917462481923580034}
+  angleChangingSpeed: 0
+  movementSpeed: 0
 --- !u!96 &4394156243942930577
 TrailRenderer:
   serializedVersion: 2
