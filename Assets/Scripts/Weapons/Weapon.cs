@@ -74,11 +74,11 @@ public abstract class Weapon : MonoBehaviour
     public MovementState movementState = MovementState.STOPPED;
     public AttackingState attackState = AttackingState.NOT_ATTACKING;
 
-    public Bullet bulletPrefab;
+    public Projectile bulletPrefab;
 
 
     private Castle enemyCastle;
-    private string enemyTag;
+    public string enemyTag;
 
     private Transform gun;
     private Transform head;
@@ -96,14 +96,26 @@ public abstract class Weapon : MonoBehaviour
     public float slowUpdateTime;
     public float updateSpeed = 1f;
 
-    private void Start()
+    private GameManager gameManager;
+    public GameObject destroyEffectPrefab;
+
+    public void Start()
     {
+        gameManager = GameManager.instance;
+        
         weaponUpgradableAttributes = GetUpgradableAttributes();
         currentSpeed = weaponUpgradableAttributes.speed.currentValue;
         currentHealth = weaponUpgradableAttributes.health.currentValue;
         currentDamage = weaponUpgradableAttributes.damage.currentValue;
         //decide the team
         enemyTag = CompareTag("TeamBlue") ? "TeamRed" : "TeamBlue";
+        Prepare();
+
+//        InvokeRepeating(nameof(SlowUpdate), 0.1f, 0.4f);
+    }
+
+    private void Prepare()
+    {
         gun = transform.Find("Base").Find("Gun");
 
         head = gun.Find("Head");
@@ -112,7 +124,6 @@ public abstract class Weapon : MonoBehaviour
         muzzle2 = head.Find("Muzzle-2");
         slowUpdateTime = lastFireTime = Time.time;
 
-//        InvokeRepeating(nameof(SlowUpdate), 0.1f, 0.4f);
     }
 
     public abstract WeaponUpgradableAttributes GetUpgradableAttributes();
@@ -212,21 +223,34 @@ public abstract class Weapon : MonoBehaviour
     }
 
     private void Fire()
-    {
+    {   
         if (attackState != AttackingState.ATTACKING) return;
         if (!target || !(Time.time - lastFireTime > 1f / AttackSpeed)) return;
         lastFireTime = Time.time;
-        var muzzlePosition = muzzle.position;
-        var bulletDirection = (Vector2) (muzzlePosition - head.position).normalized;
-        var bullet1 = Instantiate(bulletPrefab, muzzlePosition,
-            muzzle.rotation);
-//        var bullet1 = Instantiate(bulletPrefab, muzzle.position, transform.rotation);
-        bullet1.direction = bulletDirection;
-        bullet1.damage = this.currentDamage;
-        bullet1.gameObject.layer = CompareTag("TeamBlue")
+        
+        if (muzzle1 && muzzle2)
+        {
+            FireBullet(muzzle1);
+            FireBullet(muzzle2);
+        }
+        else
+        {
+            FireBullet(muzzle);
+        }
+    }
+
+    private void FireBullet(Transform muz)
+    {
+        var muzzlePosition = muz.position;
+        var bullet = Instantiate(bulletPrefab, muzzlePosition, head.rotation);
+        var bulletDirection = (Vector2) (muzzle.position - head.position).normalized;
+        bullet.direction = bulletDirection;
+        bullet.damage = this.currentDamage;
+        bullet.target = target;
+        bullet.gameObject.layer = CompareTag("TeamBlue")
             ? LayerMask.NameToLayer("TeamBlueLayer")
             : LayerMask.NameToLayer("TeamRedLayer");
-        bullet1.targetTag = CompareTag("TeamBlue") ? "TeamRed" : "TeamBlue";
+        bullet.targetTag = CompareTag("TeamBlue") ? "TeamRed" : "TeamBlue";
     }
 
     private bool IsInRange(GameObject enemy)
@@ -251,5 +275,19 @@ public abstract class Weapon : MonoBehaviour
         var position = head.position;
         var angle = Vector2.Angle(muzzle.position - position, go.transform.position - position);
         return angle;
+    }
+
+    public void UpdateHealth(float damage)
+    {
+        currentHealth += damage;
+        if (currentHealth <= 0)
+        {
+            gameManager.playerStatsScript.UpdateMoney(price / 2); //give some money back
+            Destroy(this.gameObject);
+            GameObject dEffect = (GameObject) Instantiate(destroyEffectPrefab, transform.position,
+                destroyEffectPrefab.transform.rotation);
+            Destroy(dEffect, 1f);
+        }
+
     }
 }

@@ -1,9 +1,11 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class WeaponManager : MonoBehaviour
-{ 
+{
     private float countDown = 2f;
 
     GameManager gameManager;
@@ -16,21 +18,31 @@ public class WeaponManager : MonoBehaviour
     private float randomizeSpawn = 3f; //for spawnwave to spawn different places
 
     public GameObject soldierPrefab;
+
     public GameObject tankPrefab;
     public GameObject tank1Prefab;
     public GameObject tank2Prefab;
     public GameObject tank3Prefab;
+
+    public GameObject factoryRedPanel;
+    public Factory[] factoriesRed;
+//    public Factory factory1;
+//    public Factory factory2;
+//    public Factory factory3;
+
 //    public GameObject[] tankPrefabList;
     private Transform spawnPoint;
 
     //-------wave spawn variables
-    public float timeBetweenWaves = 5f;
+    public float timeBetweenWaves = 20f;
     public Text waveCountdownText;
     private int waveIndex = 0;
     private float waveSeparator = 0.5f; //sepearete instantiations in wave
     private GameObject weapon;
 
     private GameObject weaponToCreate;
+
+    private int numCreated = 0;
 
     //--------
 
@@ -66,7 +78,9 @@ public class WeaponManager : MonoBehaviour
         waveIndex++;
         PlayerStats.Rounds++;
         randomizeSpawn = Random.Range(-3f, 3f);
-        for (int i = 0; i < waveIndex; i++)
+        factoriesRed = factoryRedPanel.GetComponentsInChildren<Factory>();
+        if (factoriesRed.Length == 0) yield return null;
+        for (int i = 0; i < (waveIndex / 3) + 5; i++)
         {
             SpawnTeamRedWeapon();
             yield return new WaitForSeconds(waveSeparator);
@@ -75,11 +89,11 @@ public class WeaponManager : MonoBehaviour
 
     void SpawnTeamRedWeapon()
     {
-        weapon = Instantiate(tankPrefab,
-            (Vector2) Random.insideUnitCircle * 2 + new Vector2(spawnPoint.position.x, spawnPoint.position.y),
-            Quaternion.identity);
-        weapon.tag = "TeamRed";
-        weapon.layer = LayerMask.NameToLayer("TeamRedLayer");
+        int arraySize = factoriesRed.Length;
+
+        var factory = factoriesRed[numCreated % arraySize];
+        factory.AddToQueue(tankPrefab);
+        numCreated++;
     }
 
     public void SetWeaponToCreate(GameObject weapon)
@@ -92,13 +106,16 @@ public class WeaponManager : MonoBehaviour
         return weaponToCreate;
     }
 
-    public void CreateWeapon(GameObject prefab, Factory factory)
+    public void CreateWeapon(GameObject prefab, Factory factory, String tag)
     {
-        var transform1 = factory.transform.Find("Gate");
-        var position = transform1.position;
-
-        weapon = Instantiate(prefab, new Vector2(position.x, position.y),
-            transform1.rotation);
-        weapon.tag = "TeamBlue";
+        Transform factoryTransform;
+        var gateTransform = (factoryTransform = factory.transform).Find("Gate");
+        var gateTransformPosition = gateTransform.position;
+        var vectorToTarget = gateTransformPosition - factoryTransform.position;
+        var angle = Mathf.Atan2(vectorToTarget.y, vectorToTarget.x) * Mathf.Rad2Deg;
+        var q = Quaternion.AngleAxis(angle - 90f, Vector3.forward);
+        weapon = Instantiate(prefab, new Vector2(gateTransformPosition.x, gateTransformPosition.y), q);
+        weapon.tag = tag;
+        weapon.layer = LayerMask.NameToLayer(tag + "Layer");
     }
 }

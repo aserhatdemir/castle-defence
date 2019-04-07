@@ -320,6 +320,7 @@ MonoBehaviour:
   minRange: 0.3
   currentHealth: 0
   currentSpeed: 1
+  currentDamage: 0
   weaponUpgradableAttributes:
     name: 
     speed:
@@ -384,11 +385,14 @@ MonoBehaviour:
   attackState: 0
   bulletPrefab: {fileID: 2625857677400097320, guid: 36908cb6679da484bbd2734c8356c088,
     type: 3}
+  enemyTag: 
   lastAngle: 0
   lastDistance: 0
   target: {fileID: 9139065919804919002, guid: 8800f938fe9874dbc98c993504c8d008, type: 3}
   slowUpdateTime: 0
   updateSpeed: 1
+  destroyEffectPrefab: {fileID: 1337198075554910, guid: 25c7aa9ad705fe143a4d71c1c8deb7d4,
+    type: 3}
 --- !u!61 &4109500605571539666
 BoxCollider2D:
   m_ObjectHideFlags: 0

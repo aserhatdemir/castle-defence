@@ -29,8 +29,10 @@ public class UIManager : MonoBehaviour
         if (factory.upgradePanel.activeSelf)
         {
             factory.upgradePanel.SetActive(false);
+            activeUpgradePanel = null;
 
             EnableAllShopButtons(shopButtons);
+            CheckShopButtonsBudget();
             return;
         }
         CloseAllActiveUpgradePanels();

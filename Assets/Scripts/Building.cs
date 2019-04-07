@@ -6,6 +6,7 @@ public class Building : MonoBehaviour
     private GameManager gameManager;
     public float health = 100f;
     public Slider healthBar;
+    public GameObject destroyEffectPrefab;
 
     private float startHealth;
 
@@ -22,13 +23,26 @@ public class Building : MonoBehaviour
         health += damage;
         UpdateHealthBar(health);
         if (health <= 0)
-        {         
+        {
             Destroy(this.gameObject);
+            Vector3 effectPosition = transform.position + new Vector3(0, 0, -3);
+            GameObject dEffect = (GameObject) Instantiate(destroyEffectPrefab, effectPosition,
+                destroyEffectPrefab.transform.rotation);
+            Destroy(dEffect, 1f);
 
             if (this.GetComponent<Factory>())
             {
-                gameManager.uiManager.DisableShopButton(this.GetComponent<Factory>().shopButton);
-                this.GetComponent<Factory>().shopButton.GetComponent<ShopButton>().factoryDestroyed = true;
+                Handheld.Vibrate();
+                if (this.CompareTag("TeamBlue"))
+                {
+                    gameManager.uiManager.DisableShopButton(this.GetComponent<Factory>().shopButton);
+                    this.GetComponent<Factory>().shopButton.GetComponent<ShopButton>().factoryDestroyed = true;
+                }
+                else if (this.CompareTag("TeamRed"))
+                {
+//                    gameManager.weaponManagerScript.RemoveFactoryFromList(this);
+                }
+                
             }
 
             if (this.GetComponent<Castle>())

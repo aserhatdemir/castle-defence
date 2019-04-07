@@ -58,7 +58,7 @@ public class Factory : Building
 
     private void CreateWeapon(GameObject prefab)
     {
-        GameManager.instance.weaponManagerScript.CreateWeapon(prefab, this);
+        GameManager.instance.weaponManagerScript.CreateWeapon(prefab, this, this.tag);
     }
 
     public void AddToQueue(GameObject prefab)
