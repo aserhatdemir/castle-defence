@@ -1,5 +1,7 @@
 using Unity.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
 public abstract class Weapon : MonoBehaviour
 {
@@ -82,9 +84,13 @@ public abstract class Weapon : MonoBehaviour
 
     private Transform gun;
     private Transform head;
-    public float lastAngle;
 
-    public float lastDistance;
+    public float lastTargetAngle;
+    public float lastTargetDistance;
+
+    public float lastDestinationAngle;
+    public float lastDestinationDistance;
+
     private float lastFireTime;
     private Transform muzzle;
     private Transform muzzle1;
@@ -98,11 +104,14 @@ public abstract class Weapon : MonoBehaviour
 
     private GameManager gameManager;
     public GameObject destroyEffectPrefab;
-
+    public GameObject destination;
+    public Vector3 destinationPoint;
+    
     public void Start()
     {
         gameManager = GameManager.instance;
-        
+        destination = gameManager.weaponManagerScript.clickedDestination;
+
         weaponUpgradableAttributes = GetUpgradableAttributes();
         currentSpeed = weaponUpgradableAttributes.speed.currentValue;
         currentHealth = weaponUpgradableAttributes.health.currentValue;
@@ -123,7 +132,6 @@ public abstract class Weapon : MonoBehaviour
         muzzle1 = head.Find("Muzzle-1");
         muzzle2 = head.Find("Muzzle-2");
         slowUpdateTime = lastFireTime = Time.time;
-
     }
 
     public abstract WeaponUpgradableAttributes GetUpgradableAttributes();
@@ -139,6 +147,7 @@ public abstract class Weapon : MonoBehaviour
         }
 
         AimTarget();
+        RotateToDestination();
         ApproachTarget();
         Fire();
     }
@@ -168,39 +177,98 @@ public abstract class Weapon : MonoBehaviour
         target = closestTarget;
         if (!target)
         {
-            movementState = MovementState.STOPPED;
+//            movementState = MovementState.STOPPED;
             aimingState = AimingState.NOT_AIMING;
             return;
         }
 
-        lastDistance = Distance(closestTarget);
+        lastTargetAngle = Mathf.Abs(FindAngle(target));
+        lastTargetDistance = Distance(closestTarget);
 
-        if (lastDistance > Range)
+        destination = gameManager.weaponManagerScript.clickedDestination;
+        
+        if(!destination || this.CompareTag("TeamRed"))
+        {
+            lastDestinationAngle = Mathf.Abs(FindAngle(target));
+            lastDestinationDistance = Distance(target);
+        }
+        else if (this.CompareTag("TeamBlue"))
+        {
+            lastDestinationAngle = Mathf.Abs(FindAngle(destination));
+            lastDestinationDistance = Distance(destination);
+        }
+        
+        DecideAimingState();
+        DecideMovementState();
+    }
+
+    private void DecideMovementState()
+    {
+        if (this.CompareTag("TeamBlue"))
+        {
+            if(destination)
+                Debug.Log("destination = " + destination.transform.position.ToString());
+            Debug.Log("last destination distanve = " + lastDestinationDistance.ToString());
+            Debug.Log("range = " + Range.ToString());
+        }
+        
+        
+        var prevMovementState = movementState;
+        if (lastDestinationDistance > Range)
         {
             movementState = MovementState.MOVING;
             currentSpeed = Speed;
-            aimingState = AimingState.AIMING;
+//            aimingState = AimingState.AIMING;
         }
 
-        if (Range * .5f < lastDistance && Range > lastDistance)
+        if (.5f < lastDestinationDistance && Range > lastDestinationDistance)
         {
-            var f1 = Mathf.Abs(lastDistance - Range) / Range;
+            var f1 = Mathf.Abs(lastDestinationDistance - Range) / Range;
             var f = currentSpeed = Speed * (1f - f1);
             movementState = MovementState.MOVING;
-            aimingState = AimingState.AIMING;
+//            aimingState = AimingState.AIMING;
         }
 
-        if (Range * .5f > lastDistance)
+//        if (.5f + Random.Range(0, 0.6f) > lastDestinationDistance)
+        if (Random.Range(0, 0.5f) > lastDestinationDistance)
         {
             movementState = MovementState.STOPPED;
+//            aimingState = AimingState.AIMING;
+        }
+
+
+//        if (lastDestinationAngle > aimingStopAngle) aimingState = AimingState.AIMING;
+
+//        if (minAttackAngle > lastDestinationAngle && Range > lastDestinationDistance) attackState = AttackingState.ATTACKING;
+    }
+
+    private void DecideAimingState()
+    {
+        if (lastTargetDistance > Range)
+        {
+//            movementState = MovementState.MOVING;
+//            currentSpeed = Speed;
             aimingState = AimingState.AIMING;
         }
 
-        lastAngle = Mathf.Abs(FindAngle(target));
+        if (Range * .5f < lastTargetDistance && Range > lastTargetDistance)
+        {
+//            var f1 = Mathf.Abs(lastDistance - Range) / Range;
+//            var f = currentSpeed = Speed * (1f - f1);
+//            movementState = MovementState.MOVING;
+            aimingState = AimingState.AIMING;
+        }
 
-        if (lastAngle > aimingStopAngle) aimingState = AimingState.AIMING;
+        if (Range * .5f > lastTargetDistance)
+        {
+//            movementState = MovementState.STOPPED;
+            aimingState = AimingState.AIMING;
+        }
 
-        if (minAttackAngle > lastAngle && Range > lastDistance) attackState = AttackingState.ATTACKING;
+
+        if (lastTargetAngle > aimingStopAngle) aimingState = AimingState.AIMING;
+
+        if (minAttackAngle > lastTargetAngle && Range > lastTargetDistance) attackState = AttackingState.ATTACKING;
     }
 
     private void AimTarget()
@@ -211,23 +279,39 @@ public abstract class Weapon : MonoBehaviour
         var angle = Mathf.Atan2(vectorToTarget.y, vectorToTarget.x) * Mathf.Rad2Deg;
         var q = Quaternion.AngleAxis(angle - 90f, Vector3.forward);
         gun.rotation = Quaternion.Slerp(gun.rotation, q, Time.deltaTime * AimingSpeed);
-        transform.rotation = Quaternion.Slerp(transform.rotation, q, Time.deltaTime * currentSpeed);
+        if (movementState == MovementState.STOPPED)
+        {
+            transform.rotation = Quaternion.Slerp(transform.rotation, q, Time.deltaTime * currentSpeed);
+        }
     }
 
+    private void RotateToDestination()
+    {
+//        if (!destination) return;
+        if (!destination || this.CompareTag("TeamRed"))
+        {
+            destination = target;
+        }
+            
+        var vectorToTarget = destination.transform.position - transform.position;
+        var angle = Mathf.Atan2(vectorToTarget.y, vectorToTarget.x) * Mathf.Rad2Deg;
+        var q = Quaternion.AngleAxis(angle - 90f, Vector3.forward);
+        transform.rotation = Quaternion.Slerp(transform.rotation, q, Time.deltaTime * currentSpeed);
+    }
 
     private void ApproachTarget()
     {
         if (movementState != MovementState.MOVING) return;
-        if (!target) return;
+        if (!destination) return;
         transform.Translate((Vector2) transform.up * currentSpeed * Time.deltaTime, Space.World);
     }
 
     private void Fire()
-    {   
+    {
         if (attackState != AttackingState.ATTACKING) return;
         if (!target || !(Time.time - lastFireTime > 1f / AttackSpeed)) return;
         lastFireTime = Time.time;
-        
+
         if (muzzle1 && muzzle2)
         {
             FireBullet(muzzle1);
@@ -251,6 +335,7 @@ public abstract class Weapon : MonoBehaviour
             ? LayerMask.NameToLayer("TeamBlueLayer")
             : LayerMask.NameToLayer("TeamRedLayer");
         bullet.targetTag = CompareTag("TeamBlue") ? "TeamRed" : "TeamBlue";
+        bullet.ttl = Range / bullet.speed;
     }
 
     private bool IsInRange(GameObject enemy)
@@ -262,7 +347,7 @@ public abstract class Weapon : MonoBehaviour
     {
         return enemy && minRange > Distance(enemy);
     }
-
+    
     private float Distance(GameObject obj)
     {
         return (transform.position - obj.transform.position).magnitude;
@@ -288,6 +373,5 @@ public abstract class Weapon : MonoBehaviour
                 destroyEffectPrefab.transform.rotation);
             Destroy(dEffect, 1f);
         }
-
     }
 }
