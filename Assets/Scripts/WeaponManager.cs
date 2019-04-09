@@ -26,6 +26,8 @@ public class WeaponManager : MonoBehaviour
 
     public GameObject factoryRedPanel;
     public Factory[] factoriesRed;
+
+    public GameObject clickedDestination;
 //    public Factory factory1;
 //    public Factory factory2;
 //    public Factory factory3;
@@ -51,6 +53,7 @@ public class WeaponManager : MonoBehaviour
     {
         gameManager = GameManager.instance;
         spawnPoint = this.transform;
+        clickedDestination = null;
 //        tankPrefabList = new[] {tank1Prefab, tank2Prefab, tank3Prefab};
         tankUpgradableAttributes.refresh();
         tank1UpgradableAttributes.refresh();

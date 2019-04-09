@@ -6,12 +6,13 @@ public class Projectile : MonoBehaviour
     public Vector3 direction;
     public float speed = 10f;
     public string targetTag;
-    public GameObject hitEffectPrefab;
     public GameObject target;
-        
-    private float ttl = 3f;
+
+    public float ttl = 3f;
     private GameManager gameManager;
     private bool hasCollided;
+
+    public GameObject destroyEffect;
 
     void Start()
     {
@@ -33,9 +34,6 @@ public class Projectile : MonoBehaviour
         if (hasCollided) return;
         hasCollided = true;
         Destroy(this.gameObject);
-        GameObject hEffect = (GameObject) Instantiate(hitEffectPrefab, transform.position,
-            hitEffectPrefab.transform.rotation);
-        Destroy(hEffect, 1f);
         if (collision.gameObject.GetComponent<Weapon>())
         {
             Weapon enemy = collision.gameObject.GetComponent<Weapon>();
@@ -49,6 +47,15 @@ public class Projectile : MonoBehaviour
         else
         {
             Debug.LogError("UNKNOWN ENEMY");
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if (destroyEffect && !hasCollided)
+        {
+            var p = Instantiate(destroyEffect, transform.position, transform.rotation);
+            Destroy(p,1.0f);
         }
     }
 }

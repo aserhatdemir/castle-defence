@@ -20,7 +20,7 @@ public class GameOver : MonoBehaviour
     {
         winLoseText.text = PlayerStats.YouWon ? "YOU WON!" : "YOU LOST!";
         roundsText.text = "Rounds: " + PlayerStats.Rounds;
-        totalTimeText.text = "Time: " + string.Format("{0:00.0}", PlayerStats.TotalTime);
+        totalTimeText.text = "Time: " + $"{PlayerStats.TotalTime:00.0}";
     }
 
     public void Retry()

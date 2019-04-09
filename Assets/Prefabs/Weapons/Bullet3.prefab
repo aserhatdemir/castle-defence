@@ -99,9 +99,9 @@ MonoBehaviour:
   direction: {x: 0, y: 0, z: 0}
   speed: 10
   targetTag: 
-  hitEffectPrefab: {fileID: 1025285306637258, guid: d8f0099df63275647a8bcf646df1ca00,
-    type: 3}
   target: {fileID: 0}
+  ttl: 3
+  destroyEffect: {fileID: 0}
   rigidBody: {fileID: 2917462481923580034}
   angleChangingSpeed: 0
   movementSpeed: 0
