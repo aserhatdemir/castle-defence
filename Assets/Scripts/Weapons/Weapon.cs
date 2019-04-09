@@ -96,6 +96,9 @@ public abstract class Weapon : MonoBehaviour
     private Transform muzzle1;
     private Transform muzzle2;
     private GameObject[] possibleTargets;
+    private Flag[] possibleFlags;
+    private GameObject currentRedTeamWeaponDestination;
+
 
     public GameObject target;
 
@@ -105,12 +108,14 @@ public abstract class Weapon : MonoBehaviour
     private GameManager gameManager;
     public GameObject destroyEffectPrefab;
     public GameObject destination;
+    public GameObject clickedDestination;
     public Vector3 destinationPoint;
-    
+
     public void Start()
     {
         gameManager = GameManager.instance;
-        destination = gameManager.weaponManagerScript.clickedDestination;
+        destination = null;
+        clickedDestination = null;
 
         weaponUpgradableAttributes = GetUpgradableAttributes();
         currentSpeed = weaponUpgradableAttributes.speed.currentValue;
@@ -119,6 +124,8 @@ public abstract class Weapon : MonoBehaviour
         //decide the team
         enemyTag = CompareTag("TeamBlue") ? "TeamRed" : "TeamBlue";
         Prepare();
+
+        possibleFlags = GameObject.FindObjectsOfType<Flag>();
 
 //        InvokeRepeating(nameof(SlowUpdate), 0.1f, 0.4f);
     }
@@ -171,9 +178,28 @@ public abstract class Weapon : MonoBehaviour
         return closest;
     }
 
+    private Flag FindClosestFlag()
+    {
+//        possibleFlags = GameObject.FindObjectsOfType<Flag>();
+        Flag closest = null;
+        var distance = Mathf.Infinity;
+        var position = transform.position;
+        foreach (var targetFlag in possibleFlags)
+        {
+            var diff = targetFlag.transform.position - position;
+            var curDistance = diff.sqrMagnitude;
+            if (!(curDistance < distance)) continue;
+            closest = targetFlag;
+            distance = curDistance;
+        }
+
+        return closest;
+    }
+
     private void SlowUpdate()
     {
         var closestTarget = FindClosestTarget();
+        var closestFlag = FindClosestFlag();
         target = closestTarget;
         if (!target)
         {
@@ -185,34 +211,34 @@ public abstract class Weapon : MonoBehaviour
         lastTargetAngle = Mathf.Abs(FindAngle(target));
         lastTargetDistance = Distance(closestTarget);
 
-        destination = gameManager.weaponManagerScript.clickedDestination;
-        
-        if(!destination || this.CompareTag("TeamRed"))
+        if (!clickedDestination || this.CompareTag("TeamRed"))
         {
-            lastDestinationAngle = Mathf.Abs(FindAngle(target));
-            lastDestinationDistance = Distance(target);
+            if (closestFlag && (Distance(target) > Distance(closestFlag.gameObject)))
+            {
+                var flagObj = closestFlag.gameObject;
+                currentRedTeamWeaponDestination = flagObj;
+                lastDestinationAngle = Mathf.Abs(FindAngle(flagObj));
+                lastDestinationDistance = Distance(flagObj);
+            }
+            else
+            {
+                currentRedTeamWeaponDestination = target;
+                lastDestinationAngle = Mathf.Abs(FindAngle(target));
+                lastDestinationDistance = Distance(target);
+            }
         }
         else if (this.CompareTag("TeamBlue"))
         {
-            lastDestinationAngle = Mathf.Abs(FindAngle(destination));
-            lastDestinationDistance = Distance(destination);
+            lastDestinationAngle = Mathf.Abs(FindAngle(clickedDestination));
+            lastDestinationDistance = Distance(clickedDestination);
         }
-        
+
         DecideAimingState();
         DecideMovementState();
     }
 
     private void DecideMovementState()
     {
-        if (this.CompareTag("TeamBlue"))
-        {
-            if(destination)
-                Debug.Log("destination = " + destination.transform.position.ToString());
-            Debug.Log("last destination distanve = " + lastDestinationDistance.ToString());
-            Debug.Log("range = " + Range.ToString());
-        }
-        
-        
         var prevMovementState = movementState;
         if (lastDestinationDistance > Range)
         {
@@ -287,12 +313,23 @@ public abstract class Weapon : MonoBehaviour
 
     private void RotateToDestination()
     {
-//        if (!destination) return;
-        if (!destination || this.CompareTag("TeamRed"))
+        if (this.CompareTag("TeamRed"))
         {
-            destination = target;
+            destination = currentRedTeamWeaponDestination; //target or flag
         }
-            
+        else if (this.CompareTag("TeamBlue"))
+        {
+            if (!clickedDestination)
+            {
+                destination = target;
+            }  
+            else
+            {
+                destination = clickedDestination;
+            }
+        }
+        
+
         var vectorToTarget = destination.transform.position - transform.position;
         var angle = Mathf.Atan2(vectorToTarget.y, vectorToTarget.x) * Mathf.Rad2Deg;
         var q = Quaternion.AngleAxis(angle - 90f, Vector3.forward);
@@ -347,7 +384,7 @@ public abstract class Weapon : MonoBehaviour
     {
         return enemy && minRange > Distance(enemy);
     }
-    
+
     private float Distance(GameObject obj)
     {
         return (transform.position - obj.transform.position).magnitude;

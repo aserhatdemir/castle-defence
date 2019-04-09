@@ -89,7 +89,7 @@ Transform:
   m_GameObject: {fileID: 9139065919804919002}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.3, y: 0.3, z: 1}
+  m_LocalScale: {x: 0.4, y: 0.4, z: 1}
   m_Children:
   - {fileID: 9139065921070639381}
   m_Father: {fileID: 0}
@@ -177,13 +177,18 @@ MonoBehaviour:
   bulletPrefab: {fileID: 2564519052406223603, guid: ad7ef95407ea749a0836f5ff501c25b2,
     type: 3}
   enemyTag: 
-  lastAngle: 0
-  lastDistance: 0
+  lastTargetAngle: 0
+  lastTargetDistance: 0
+  lastDestinationAngle: 0
+  lastDestinationDistance: 0
   target: {fileID: 9139065919804919002}
   slowUpdateTime: 0
   updateSpeed: 1
   destroyEffectPrefab: {fileID: 1337198075554910, guid: 25c7aa9ad705fe143a4d71c1c8deb7d4,
     type: 3}
+  destination: {fileID: 0}
+  clickedDestination: {fileID: 0}
+  destinationPoint: {x: 0, y: 0, z: 0}
 --- !u!61 &5720316134369627840
 BoxCollider2D:
   m_ObjectHideFlags: 0

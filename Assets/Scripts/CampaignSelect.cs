@@ -18,7 +18,11 @@ public class CampaignSelect : MonoBehaviour
     {
         sceneFader.FadeTo("Campaign3");
     }
-
+    
+    public void PlayCampaign4()
+    {
+        sceneFader.FadeTo("Campaign4");
+    }
     public void ReturnMenu()
     {
         sceneFader.FadeTo("Menu");

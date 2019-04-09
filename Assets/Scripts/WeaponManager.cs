@@ -28,6 +28,8 @@ public class WeaponManager : MonoBehaviour
     public Factory[] factoriesRed;
 
     public GameObject clickedDestination;
+
+    public GameObject destinationPrefab;
 //    public Factory factory1;
 //    public Factory factory2;
 //    public Factory factory3;
@@ -120,5 +122,38 @@ public class WeaponManager : MonoBehaviour
         weapon = Instantiate(prefab, new Vector2(gateTransformPosition.x, gateTransformPosition.y), q);
         weapon.tag = tag;
         weapon.layer = LayerMask.NameToLayer(tag + "Layer");
+    }
+
+    public void ChangeClickedDestination(Vector3 mousePositionInWorld)
+    {
+        if (!clickedDestination)
+            clickedDestination = Instantiate(destinationPrefab, mousePositionInWorld, Quaternion.identity);
+        else
+            clickedDestination.transform.position = mousePositionInWorld;
+
+        var weaponList = FindAliveWeapons("TeamBlue");
+        foreach (var wep in weaponList)
+        {
+            var w = wep.GetComponent<Weapon>();
+            if (w)
+            {
+                RandomlyAssignClickedDestination(w, mousePositionInWorld);
+            }
+        }
+    }
+
+    private void RandomlyAssignClickedDestination(Weapon wep, Vector3 pos)
+    {
+        var newPosition = (Vector2) pos + Random.insideUnitCircle * 1;
+        if (!wep.clickedDestination)
+            wep.clickedDestination = Instantiate(destinationPrefab, newPosition, Quaternion.identity);
+        else
+            wep.clickedDestination.transform.position = newPosition;
+    }
+
+    private GameObject[] FindAliveWeapons(string tag)
+    {
+        GameObject[] weaponList = GameObject.FindGameObjectsWithTag(tag);
+        return weaponList;
     }
 }
