@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class GameManager : MonoBehaviour
     public PlayerStats playerStatsScript; 
     public WeaponManager weaponManagerScript;
     public UIManager uiManager;
+
+    public String deviceType;
     
     
 
@@ -28,6 +31,24 @@ public class GameManager : MonoBehaviour
         playerStatsScript = GetComponent<PlayerStats>();
         uiManager = GetComponent<UIManager>();
         GameIsOver = false;
+
+        deviceType = DetectDeviceType();
+    }
+
+    private String DetectDeviceType()
+    {
+        String dType = "Desktop"; 
+        switch (SystemInfo.deviceType)
+        {
+            case DeviceType.Desktop:
+                dType = "Desktop";
+                break;
+            case DeviceType.Handheld:
+                dType = "Handheld";
+                break;
+        }
+
+        return dType;
     }
 
 
@@ -35,6 +56,7 @@ public class GameManager : MonoBehaviour
     {
         GameIsOver = true;
         gameOverUI.SetActive(true);
+        Time.timeScale = 0f;
     }
 
     public void PauseGame()

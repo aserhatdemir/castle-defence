@@ -32,7 +32,8 @@ public class Building : MonoBehaviour
 
             if (this.GetComponent<Factory>())
             {
-                Handheld.Vibrate();
+                if(gameManager.deviceType == "Handheld")
+                    Handheld.Vibrate();
                 if (this.CompareTag("TeamBlue"))
                 {
                     gameManager.uiManager.DisableShopButton(this.GetComponent<Factory>().shopButton);

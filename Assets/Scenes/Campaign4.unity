@@ -6419,6 +6419,8 @@ MonoBehaviour:
   factoryRedPanel: {fileID: 1536054885}
   factoriesRed: []
   clickedDestination: {fileID: 0}
+  destinationPrefab: {fileID: 4347600519377345007, guid: 384f080e67b8343f19805f0d20a98077,
+    type: 3}
   timeBetweenWaves: 5
   waveCountdownText: {fileID: 1538419863}
 --- !u!114 &1718525128

@@ -73,6 +73,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 066df3ac7eedc4104a3d1bc3debb47fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cursorTexture: {fileID: 2800000, guid: 561fdd5daf16c4b46b1cd3576e71e97d, type: 3}
+  cursorMode: 0
+  hotSpot: {x: 0, y: 0}
 --- !u!222 &603628430979427474
 CanvasRenderer:
   m_ObjectHideFlags: 0

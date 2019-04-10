@@ -95,7 +95,7 @@ public class WeaponManager : MonoBehaviour
     void SpawnTeamRedWeapon()
     {
         int arraySize = factoriesRed.Length;
-
+        if (arraySize == 0) return;
         var factory = factoriesRed[numCreated % arraySize];
         factory.AddToQueue(tankPrefab);
         numCreated++;
@@ -142,7 +142,7 @@ public class WeaponManager : MonoBehaviour
         }
     }
 
-    private void RandomlyAssignClickedDestination(Weapon wep, Vector3 pos)
+    public void RandomlyAssignClickedDestination(Weapon wep, Vector3 pos)
     {
         var newPosition = (Vector2) pos + Random.insideUnitCircle * 1;
         if (!wep.clickedDestination)

@@ -25,11 +25,13 @@ public class GameOver : MonoBehaviour
 
     public void Retry()
     {
+        Time.timeScale = 1f;
         sceneFader.FadeTo(sceneName);
     }
 
     public void Menu()
     {
+        Time.timeScale = 1f;
         sceneFader.FadeTo("Menu");
     }
 }

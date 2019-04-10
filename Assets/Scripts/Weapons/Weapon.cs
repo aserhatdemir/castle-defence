@@ -111,11 +111,20 @@ public abstract class Weapon : MonoBehaviour
     public GameObject clickedDestination;
     public Vector3 destinationPoint;
 
+
     public void Start()
     {
         gameManager = GameManager.instance;
         destination = null;
         clickedDestination = null;
+
+        var originalClickedDestination = gameManager.weaponManagerScript.clickedDestination;
+        if (originalClickedDestination != null)
+        {
+            var originalClickedPosition = originalClickedDestination.transform.position;
+            gameManager.weaponManagerScript.RandomlyAssignClickedDestination(this, originalClickedPosition);
+        }
+        
 
         weaponUpgradableAttributes = GetUpgradableAttributes();
         currentSpeed = weaponUpgradableAttributes.speed.currentValue;

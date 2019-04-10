@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.Experimental.UIElements;
 
@@ -10,35 +12,74 @@ public class Flag : MonoBehaviour
     private Sprite redFlagImage;
 
     private float captureTime;
+    private float countdown;
+    private SpriteRenderer flagSpriteRenderer;
+    private List<GameObject> currentCollisionsList;
 
     private void Start()
     {
-        captureTime = 10f;
-        
         neutralFlagImage = Resources.Load<Sprite>("Images/circle_flag_icon");
         blueFlagImage = Resources.Load<Sprite>("Images/circle_blue_flag_icon");
         redFlagImage = Resources.Load<Sprite>("Images/circle_red_flag_icon");
-        this.gameObject.GetComponent<SpriteRenderer>().sprite = redFlagImage;
+        
+        captureTime = 2f;
+        countdown = captureTime;
+        flagSpriteRenderer = this.gameObject.GetComponent<SpriteRenderer>();
+        flagSpriteRenderer.sprite = neutralFlagImage;
+        currentCollisionsList = new List <GameObject> ();
     }
 
+    void Update()
+    {
+        if (countdown <= 0f)
+        {
+            ChangeOwner("TeamRed");
+        }
+
+        countdown -= Time.deltaTime;
+        countdown = Mathf.Clamp(countdown, 0f, Mathf.Infinity);
+    }
 
     private void ChangeOwner(string team)
     {
         Sprite ownerSprite;
-        if (team == "TeamBlue")
+        switch (team)
         {
-            ownerSprite = blueFlagImage;
-        }
-        else if (team == "TeamRed")
-        {
-            ownerSprite = redFlagImage;
-        }
-        else
-        {
-            ownerSprite = neutralFlagImage;
+            case "TeamBlue":
+                ownerSprite = blueFlagImage;
+                break;
+            case "TeamRed":
+                ownerSprite = redFlagImage;
+                break;
+            default:
+                ownerSprite = neutralFlagImage;
+                break;
         }
 
-        this.gameObject.GetComponent<SpriteRenderer>().sprite = ownerSprite;
+        flagSpriteRenderer.sprite = ownerSprite;
         owner = team;
+    }
+
+    private void DecideOwner()
+    {
+        
+    }
+     
+    void OnCollisionEnter (Collision col) 
+    {
+        currentCollisionsList.Add (col.gameObject);
+        foreach (GameObject gObject in currentCollisionsList) 
+        {
+            Debug.Log(gObject);
+        }
+    }
+ 
+    void OnCollisionExit (Collision col) 
+    {
+        currentCollisionsList.Remove (col.gameObject);
+        foreach (GameObject gObject in currentCollisionsList) 
+        {
+            Debug.Log(gObject);
+        }
     }
 }
